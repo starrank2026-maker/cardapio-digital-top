@@ -1,0 +1,2139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Star Pizzaria ⭐ Cardápio Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#C9A84C;--gold2:#F0C040;--gold-light:#FFD97D;
+  --gold-glow:rgba(201,168,76,0.35);
+  --bg:#0A0A0A;--bg2:#111111;--bg3:#161616;
+  --card:#141414;--card2:#1A1A1A;
+  --border:rgba(201,168,76,0.18);
+  --text:#F5F0E8;--text2:#A09070;--red:#E03030;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--text);font-family:'Montserrat',sans-serif;min-height:100vh;overflow-x:hidden}
+body::-webkit-scrollbar{width:4px}
+body::-webkit-scrollbar-track{background:var(--bg)}
+body::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+
+/* LOADING */
+#loading{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s,visibility .6s}
+#loading.hide{opacity:0;visibility:hidden;pointer-events:none}
+.ld-star{font-size:3rem;animation:ldSpin 2s linear infinite;margin-bottom:12px}
+@keyframes ldSpin{to{transform:rotate(360deg)}}
+.ld-name{font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);letter-spacing:4px;margin-bottom:4px;text-shadow:0 0 30px rgba(201,168,76,.5)}
+.ld-sub{font-size:.6rem;letter-spacing:8px;color:var(--text2);text-transform:uppercase;margin-bottom:36px}
+.ld-bar{width:180px;height:2px;background:rgba(201,168,76,.15);border-radius:2px;overflow:hidden}
+.ld-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:2px;animation:ldFill 1.6s ease forwards}
+@keyframes ldFill{to{width:100%}}
+
+/* HEADER */
+header{position:fixed;top:0;left:0;right:0;z-index:1000;height:60px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all .3s}
+header.scrolled{background:rgba(6,6,6,.97);box-shadow:0 4px 30px rgba(201,168,76,.08)}
+.hlogo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.hlogo-icon{font-size:1.4rem;filter:drop-shadow(0 0 8px var(--gold))}
+.hlogo-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--gold);letter-spacing:2px;text-shadow:0 0 20px rgba(201,168,76,.4)}
+.hlogo-sub{font-size:.45rem;letter-spacing:5px;color:var(--text2);text-transform:uppercase;display:block}
+.hright{display:flex;align-items:center;gap:10px}
+.open-pill{display:flex;align-items:center;gap:4px;font-size:.58rem;font-weight:700;letter-spacing:1px;color:#2ecc71;text-transform:uppercase}
+.open-dot{width:6px;height:6px;border-radius:50%;background:#2ecc71;animation:blink 1.4s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.btn-cart{position:relative;background:linear-gradient(135deg,var(--gold2),#8B6914);border:none;border-radius:50px;padding:8px 14px;display:flex;align-items:center;gap:5px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.7rem;color:#000;cursor:pointer;transition:all .3s;letter-spacing:1px;box-shadow:0 4px 20px rgba(201,168,76,.3)}
+.btn-cart:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(201,168,76,.5)}
+.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--red);color:#fff;width:18px;height:18px;border-radius:50%;font-size:.6rem;font-weight:800;display:none;align-items:center;justify-content:center;animation:popIn .3s cubic-bezier(.175,.885,.32,1.275)}
+.cart-badge.show{display:flex}
+@keyframes popIn{from{transform:scale(0)}to{transform:scale(1)}}
+
+/* HERO */
+.hero{margin-top:60px;position:relative;overflow:hidden;background:#000}
+.hero-img{width:100%;display:block;object-fit:cover;max-height:420px;filter:brightness(.82)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(130deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.3) 55%,transparent 100%)}
+.hero-content{position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);padding:0 20px;max-width:400px}
+.promo-tag{display:inline-block;background:var(--red);color:#fff;font-size:.5rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;padding:4px 10px;border-radius:3px;margin-bottom:8px;animation:fadeUp .5s ease both}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,7vw,3rem);font-weight:900;line-height:1;color:#fff;margin-bottom:4px;text-shadow:0 2px 20px rgba(0,0,0,.8);animation:fadeUp .6s ease .1s both}
+.hero-title span{color:var(--gold2);text-shadow:0 0 30px rgba(240,192,64,.8)}
+.hero-desc{font-size:.78rem;color:rgba(255,255,255,.85);margin-bottom:10px;letter-spacing:1px;font-weight:500;animation:fadeUp .6s ease .15s both}
+.hero-price-row{display:flex;align-items:baseline;gap:6px;margin-bottom:12px;animation:fadeUp .6s ease .2s both}
+.hero-from{font-size:.6rem;color:var(--text2)}
+.hero-price{font-family:'Playfair Display',serif;font-size:2.3rem;font-weight:900;color:var(--gold2);text-shadow:0 0 20px rgba(240,192,64,.6)}
+.timer-row{display:flex;align-items:center;gap:6px;margin-bottom:14px;animation:fadeUp .6s ease .25s both}
+.timer-lbl{font-size:.58rem;color:var(--text2);letter-spacing:1px;text-transform:uppercase}
+.timer-wrap{display:flex;gap:3px;align-items:center}
+.tblock{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:6px;padding:3px 7px;font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--gold2);min-width:30px;text-align:center;box-shadow:0 0 10px rgba(201,168,76,.1)}
+.tsep{color:var(--gold);font-size:.9rem;font-weight:700}
+.btn-promo{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#000;font-weight:800;font-size:.75rem;letter-spacing:2px;text-transform:uppercase;padding:11px 22px;border-radius:50px;border:none;cursor:pointer;box-shadow:0 6px 30px rgba(201,168,76,.5);transition:all .3s;animation:fadeUp .6s ease .3s both}
+.btn-promo:hover{transform:translateY(-3px);box-shadow:0 10px 40px rgba(201,168,76,.7)}
+.hero-feats{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:center;gap:8px;padding:10px 16px;background:linear-gradient(transparent,rgba(0,0,0,.7))}
+.hero-feat{display:flex;align-items:center;gap:4px;font-size:.52rem;color:rgba(255,255,255,.65);letter-spacing:.5px;white-space:nowrap}
+.hero-feat span{font-size:.75rem}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* CATS */
+.cats-sticky{position:sticky;top:60px;z-index:900;background:rgba(8,8,8,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.cats{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:10px 14px}
+.cats::-webkit-scrollbar{display:none}
+.cat-btn{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:50px;padding:7px 14px;color:var(--text2);font-family:'Montserrat',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:1px;cursor:pointer;transition:all .25s;white-space:nowrap;text-transform:uppercase}
+.cat-btn:hover{border-color:rgba(201,168,76,.3);color:var(--gold-light);background:rgba(201,168,76,.06)}
+.cat-btn.active{background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.06));border-color:var(--gold);color:var(--gold2);box-shadow:0 0 15px rgba(201,168,76,.12)}
+
+/* SECTION */
+.section-header{padding:24px 14px 12px;display:flex;align-items:center;gap:12px}
+.section-line{flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent);opacity:.25}
+.section-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--gold);letter-spacing:2px;white-space:nowrap}
+
+/* MENU GRID */
+.menu-section{padding:0 12px 6px}
+.menu-grid{display:flex;flex-direction:column;gap:10px}
+
+/* CARD */
+.menu-card{background:var(--card);border:1px solid var(--border);border-radius:16px;display:flex;overflow:hidden;cursor:pointer;transition:all .3s cubic-bezier(.34,1.56,.64,1);position:relative;animation:cIn .5s ease both}
+.menu-card:hover{transform:translateY(-3px) scale(1.01);border-color:rgba(201,168,76,.4);box-shadow:0 8px 40px rgba(201,168,76,.1)}
+.menu-card:active{transform:scale(.98)}
+@keyframes cIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.menu-card:nth-child(2){animation-delay:.05s}.menu-card:nth-child(3){animation-delay:.1s}.menu-card:nth-child(4){animation-delay:.15s}.menu-card:nth-child(5){animation-delay:.2s}.menu-card:nth-child(6){animation-delay:.25s}.menu-card:nth-child(7){animation-delay:.3s}.menu-card:nth-child(8){animation-delay:.35s}
+.card-img-wrap{width:108px;min-width:108px;height:108px;overflow:hidden;position:relative;flex-shrink:0}
+.card-img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.menu-card:hover .card-img{transform:scale(1.08)}
+.badge-hot{position:absolute;top:6px;left:6px;background:var(--red);color:#fff;font-size:.48rem;font-weight:800;letter-spacing:1px;padding:2px 6px;border-radius:3px;text-transform:uppercase}
+.badge-top{position:absolute;top:6px;left:6px;background:linear-gradient(135deg,var(--gold),#8B6914);color:#000;font-size:.48rem;font-weight:800;letter-spacing:1px;padding:2px 6px;border-radius:3px;text-transform:uppercase}
+.card-body{flex:1;padding:11px;display:flex;flex-direction:column;justify-content:space-between}
+.card-name{font-family:'Playfair Display',serif;font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:3px}
+.card-desc{font-size:.62rem;color:var(--text2);line-height:1.5;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-meta{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.card-stars{font-size:.62rem;color:var(--gold)}
+.card-time{font-size:.58rem;color:var(--text2)}
+.card-bottom{display:flex;align-items:center;justify-content:space-between}
+.card-price-from{font-size:.55rem;color:var(--text2)}
+.card-price{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--gold2)}
+.btn-add{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold2),var(--gold));border:none;color:#000;font-size:1.1rem;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s;box-shadow:0 4px 15px rgba(201,168,76,.3);flex-shrink:0}
+.btn-add:hover{transform:scale(1.15);box-shadow:0 6px 20px rgba(201,168,76,.5)}
+.btn-add:active{transform:scale(.9)}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);display:none;align-items:flex-end;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg2);border-radius:24px 24px 0 0;width:100%;max-width:600px;max-height:92vh;overflow-y:auto;border-top:1px solid var(--border);transform:translateY(100%);transition:transform .4s cubic-bezier(.34,1.1,.64,1)}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal::-webkit-scrollbar{width:3px}
+.modal::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+.modal-handle{width:36px;height:4px;background:rgba(255,255,255,.15);border-radius:2px;margin:10px auto 0}
+.modal-header{display:flex;align-items:flex-start;gap:12px;padding:14px;border-bottom:1px solid var(--border)}
+.modal-img{width:76px;height:76px;border-radius:12px;object-fit:cover;flex-shrink:0;border:1px solid var(--border)}
+.modal-title-wrap{flex:1}
+.modal-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:4px}
+.modal-desc{font-size:.68rem;color:var(--text2);line-height:1.5}
+.modal-close{background:rgba(255,255,255,.08);border:none;width:30px;height:30px;border-radius:50%;color:var(--text);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.modal-close:hover{background:rgba(255,255,255,.15)}
+.modal-body{padding:14px;display:flex;flex-direction:column;gap:18px}
+.opt-title{font-size:.6rem;font-weight:800;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.opt-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(201,168,76,.3),transparent)}
+
+/* SIZE */
+.size-grid{display:flex;gap:8px}
+.size-opt{flex:1;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:10px 6px;background:rgba(255,255,255,.03);cursor:pointer;transition:all .25s;text-align:center}
+.size-opt:hover{border-color:rgba(201,168,76,.4)}
+.size-opt.sel{border-color:var(--gold);background:rgba(201,168,76,.1);box-shadow:0 0 15px rgba(201,168,76,.12)}
+.size-lbl{font-size:.78rem;font-weight:700;color:var(--text);display:block;margin-bottom:2px}
+.size-px{font-size:.68rem;color:var(--gold2);font-weight:600}
+.size-sl{font-size:.52rem;color:var(--text2);margin-top:2px}
+
+/* HALF */
+.half-toggle{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:11px 13px;cursor:pointer;transition:all .25s}
+.half-toggle:hover{border-color:rgba(201,168,76,.3)}
+.half-left{display:flex;align-items:center;gap:10px}
+.half-icon{font-size:1.3rem}
+.half-main{font-size:.78rem;font-weight:600;color:var(--text)}
+.half-sub{font-size:.6rem;color:var(--text2)}
+.tswitch{width:42px;height:22px;background:rgba(255,255,255,.1);border-radius:11px;position:relative;transition:all .3s;flex-shrink:0}
+.tswitch.on{background:linear-gradient(135deg,var(--gold),var(--gold2))}
+.tknob{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:all .3s;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.tswitch.on .tknob{left:23px}
+.half-sel{display:none;margin-top:10px;gap:8px;flex-direction:column}
+.half-sel.show{display:flex}
+.half-row{display:flex;align-items:center;gap:8px}
+.half-lbl{font-size:.62rem;color:var(--gold);font-weight:700;letter-spacing:1px;min-width:28px}
+.half-select{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:7px 10px;color:var(--text);font-family:'Montserrat',sans-serif;font-size:.7rem;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 5 5-5' stroke='%23C9A84C' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:26px}
+.half-select option{background:var(--bg2)}
+
+/* CRUST */
+.crust-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.crust-opt{border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px;background:rgba(255,255,255,.02);cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:8px}
+.crust-opt:hover{border-color:rgba(201,168,76,.3)}
+.crust-opt.sel{border-color:var(--gold);background:rgba(201,168,76,.07)}
+.ccheck{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.crust-opt.sel .ccheck{background:var(--gold);border-color:var(--gold)}
+.ccheck-dot{width:6px;height:6px;border-radius:50%;background:#000;opacity:0;transition:all .2s}
+.crust-opt.sel .ccheck-dot{opacity:1}
+.cname{font-size:.72rem;font-weight:600;color:var(--text)}
+.cextra{font-size:.58rem;color:var(--gold2)}
+
+/* OBS */
+.obs-ta{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:10px 12px;color:var(--text);font-family:'Montserrat',sans-serif;font-size:.72rem;resize:none;height:65px;transition:border-color .2s}
+.obs-ta:focus{outline:none;border-color:rgba(201,168,76,.4)}
+.obs-ta::placeholder{color:rgba(255,255,255,.18)}
+
+/* MODAL FOOTER */
+.modal-footer{padding:14px;border-top:1px solid var(--border);display:flex;align-items:center;gap:12px;position:sticky;bottom:0;background:var(--bg2)}
+.qty-ctrl{display:flex;align-items:center;gap:8px}
+.qty-btn{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:var(--text);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.qty-btn:hover{background:rgba(201,168,76,.2);border-color:var(--gold)}
+.qty-n{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text);min-width:18px;text-align:center}
+.btn-add-cart{flex:1;background:linear-gradient(135deg,var(--gold2),var(--gold));border:none;border-radius:50px;padding:12px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:#000;cursor:pointer;box-shadow:0 6px 25px rgba(201,168,76,.4);transition:all .3s;display:flex;align-items:center;justify-content:space-between}
+.btn-add-cart:hover{transform:translateY(-2px);box-shadow:0 10px 35px rgba(201,168,76,.6)}
+.bap-price{font-size:.9rem;font-weight:900}
+
+/* CART SIDEBAR */
+.cart-sidebar{position:fixed;top:0;right:-100%;bottom:0;z-index:3000;width:min(100vw,420px);background:var(--bg2);border-left:1px solid var(--border);display:flex;flex-direction:column;transition:right .4s cubic-bezier(.34,1.1,.64,1);box-shadow:-10px 0 60px rgba(0,0,0,.6)}
+.cart-sidebar.open{right:0}
+.cart-hdr{padding:18px 14px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.cart-hdr-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--gold);display:flex;align-items:center;gap:8px}
+.cart-x{background:rgba(255,255,255,.06);border:none;width:34px;height:34px;border-radius:50%;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .2s}
+.cart-x:hover{background:rgba(255,255,255,.12)}
+.cart-items{flex:1;overflow-y:auto;padding:10px}
+.cart-items::-webkit-scrollbar{width:3px}
+.cart-items::-webkit-scrollbar-thumb{background:var(--gold)}
+.cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;color:var(--text2)}
+.ce-icon{font-size:2.5rem;opacity:.3}
+.ce-text{font-size:.75rem;letter-spacing:1px}
+.ci{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:11px;margin-bottom:8px;animation:cIn .3s ease}
+.ci-top{display:flex;gap:10px;align-items:flex-start}
+.ci-img{width:52px;height:52px;border-radius:8px;object-fit:cover;flex-shrink:0}
+.ci-info{flex:1}
+.ci-name{font-size:.82rem;font-weight:700;color:var(--text);margin-bottom:2px}
+.ci-details{font-size:.6rem;color:var(--text2);line-height:1.5}
+.ci-rm{background:none;border:none;color:rgba(255,100,100,.5);font-size:.95rem;cursor:pointer;padding:2px;transition:color .2s}
+.ci-rm:hover{color:var(--red)}
+.ci-bot{display:flex;align-items:center;justify-content:space-between;margin-top:7px}
+.ci-price{font-family:'Playfair Display',serif;font-size:.9rem;font-weight:700;color:var(--gold2)}
+.ci-qty{display:flex;align-items:center;gap:7px}
+.ci-qb{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.08);border:none;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:all .2s}
+.ci-qb:hover{background:rgba(201,168,76,.2)}
+.ci-qn{font-size:.82rem;font-weight:700;color:var(--text);min-width:14px;text-align:center}
+.cart-ftr{padding:14px;border-top:1px solid var(--border)}
+.cart-tots{margin-bottom:11px}
+.cr{display:flex;justify-content:space-between;font-size:.72rem;color:var(--text2);margin-bottom:5px}
+.cr.total{font-size:.95rem;font-weight:800;color:var(--text);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+.cr.total span:last-child{color:var(--gold2)}
+.btn-checkout{width:100%;background:linear-gradient(135deg,var(--gold2),var(--gold));border:none;border-radius:50px;padding:14px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:.8rem;letter-spacing:2px;text-transform:uppercase;color:#000;cursor:pointer;box-shadow:0 6px 25px rgba(201,168,76,.4);transition:all .3s}
+.btn-checkout:hover{transform:translateY(-2px);box-shadow:0 10px 35px rgba(201,168,76,.6)}
+
+/* CHECKOUT */
+.ck-screen{position:fixed;inset:0;z-index:4000;background:var(--bg);overflow-y:auto;transform:translateX(100%);transition:transform .4s cubic-bezier(.34,1.1,.64,1)}
+.ck-screen.open{transform:translateX(0)}
+.ck-screen::-webkit-scrollbar{width:3px}
+.ck-screen::-webkit-scrollbar-thumb{background:var(--gold)}
+.ck-top{position:sticky;top:0;z-index:10;padding:14px;background:rgba(8,8,8,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.ck-back{background:rgba(255,255,255,.06);border:none;width:34px;height:34px;border-radius:50%;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.ck-ttitle{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--gold)}
+.ck-secure{font-size:.58rem;color:var(--text2);margin-left:auto;display:flex;align-items:center;gap:4px}
+.ck-content{padding:14px;max-width:600px;margin:0 auto}
+.ck-section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:12px}
+.ck-sec-title{font-size:.6rem;font-weight:800;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:13px;display:flex;align-items:center;gap:6px}
+.fgrid{display:grid;gap:9px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.ffield{display:flex;flex-direction:column;gap:4px}
+.flbl{font-size:.58rem;color:var(--text2);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.finput{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:9px 11px;color:var(--text);font-family:'Montserrat',sans-serif;font-size:.77rem;transition:all .2s}
+.finput:focus{outline:none;border-color:var(--gold);background:rgba(201,168,76,.04)}
+.finput::placeholder{color:rgba(255,255,255,.18)}
+.pay-opts{display:flex;flex-direction:column;gap:7px}
+.pay-opt{border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:11px 13px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .2s;background:rgba(255,255,255,.02)}
+.pay-opt:hover{border-color:rgba(201,168,76,.3)}
+.pay-opt.sel{border-color:var(--gold);background:rgba(201,168,76,.06)}
+.pradio{width:17px;height:17px;border-radius:50%;border:2px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.pay-opt.sel .pradio{border-color:var(--gold);background:var(--gold)}
+.pradio-dot{width:5px;height:5px;border-radius:50%;background:#000;opacity:0;transition:all .2s}
+.pay-opt.sel .pradio-dot{opacity:1}
+.pay-icon{font-size:1.15rem}
+.pay-name{font-size:.77rem;font-weight:600;color:var(--text)}
+.pay-desc{font-size:.58rem;color:var(--text2)}
+.troco-wrap{display:none;margin-top:9px;gap:10px;align-items:center;background:rgba(255,255,255,.03);border-radius:10px;padding:11px}
+.troco-wrap.show{display:flex}
+.troco-lbl{font-size:.72rem;color:var(--text2);white-space:nowrap}
+.troco-btns{display:flex;gap:6px}
+.troco-btn{padding:5px 11px;border-radius:20px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:var(--text2);font-size:.68rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Montserrat',sans-serif}
+.troco-btn.active{border-color:var(--gold);background:rgba(201,168,76,.1);color:var(--gold)}
+.troco-inp{display:none;flex:1}
+.troco-inp.show{display:block}
+.os{display:flex;flex-direction:column;gap:7px}
+.os-item{display:flex;gap:10px;align-items:center;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,.04)}
+.os-item:last-child{border-bottom:none}
+.os-img{width:42px;height:42px;border-radius:8px;object-fit:cover;flex-shrink:0}
+.os-name{font-size:.76rem;font-weight:700;color:var(--text)}
+.os-det{font-size:.58rem;color:var(--text2);line-height:1.5}
+.os-price{font-size:.82rem;font-weight:700;color:var(--gold2);font-family:'Playfair Display',serif;white-space:nowrap}
+.total-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:12px}
+.trow{display:flex;justify-content:space-between;font-size:.75rem;color:var(--text2);margin-bottom:7px}
+.trow.grand{font-size:1.05rem;font-weight:800;color:var(--text);margin-top:9px;padding-top:9px;border-top:1px solid var(--border)}
+.trow.grand span:last-child{color:var(--gold2)}
+.btn-wa{width:100%;background:linear-gradient(135deg,#25D366,#128C7E);border:none;border-radius:50px;padding:15px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:.82rem;letter-spacing:1px;color:#fff;cursor:pointer;box-shadow:0 6px 25px rgba(37,211,102,.35);transition:all .3s;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px}
+.btn-wa:hover{transform:translateY(-2px);box-shadow:0 10px 35px rgba(37,211,102,.5)}
+.wa-sub{text-align:center;font-size:.58rem;color:var(--text2);letter-spacing:1px}
+
+/* FLOAT CART */
+.float-cart{position:fixed;bottom:0;left:0;right:0;z-index:1500;padding:10px 14px;background:linear-gradient(transparent,rgba(8,8,8,.97));display:none}
+.float-cart.show{display:block}
+.float-btn{width:100%;max-width:600px;margin:0 auto;display:flex;background:linear-gradient(135deg,var(--gold2),var(--gold));border:none;border-radius:50px;padding:13px 20px;align-items:center;justify-content:space-between;font-family:'Montserrat',sans-serif;font-weight:800;font-size:.78rem;letter-spacing:1px;color:#000;cursor:pointer;box-shadow:0 8px 30px rgba(201,168,76,.5);transition:all .3s}
+.float-btn:hover{transform:translateY(-2px)}
+.float-left{display:flex;align-items:center;gap:8px}
+.float-cnt{background:rgba(0,0,0,.25);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900}
+
+/* BACKDROP */
+.backdrop{position:fixed;inset:0;z-index:2999;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);display:none}
+.backdrop.show{display:block}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:28px 14px;text-align:center;margin-bottom:75px}
+.ft-logo{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);margin-bottom:6px;text-shadow:0 0 20px rgba(201,168,76,.3)}
+.ft-hours{font-size:.65rem;color:var(--text2);letter-spacing:1px;margin-bottom:8px}
+.ft-copy{font-size:.55rem;color:rgba(255,255,255,.18);letter-spacing:2px}
+
+/* TOAST */
+.toast{position:fixed;top:72px;left:50%;transform:translateX(-50%) translateY(-16px);z-index:9998;background:linear-gradient(135deg,rgba(201,168,76,.92),rgba(140,105,20,.92));backdrop-filter:blur(10px);color:#000;font-weight:700;font-size:.75rem;padding:9px 20px;border-radius:50px;letter-spacing:1px;opacity:0;pointer-events:none;transition:all .3s;white-space:nowrap;box-shadow:0 8px 30px rgba(201,168,76,.4)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:380px){.frow{grid-template-columns:1fr}}
+
+/* SPOTLIGHT ANIMATION for hot items */
+@keyframes spotGlow {
+  0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}
+  50%{box-shadow:0 0 30px 4px rgba(201,168,76,0.25),0 0 60px 8px rgba(201,168,76,0.1)}
+}
+@keyframes badgePulse {
+  0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(224,48,48,0.4)}
+  50%{transform:scale(1.06);box-shadow:0 0 12px 3px rgba(224,48,48,0.5)}
+}
+@keyframes goldShimmer {
+  0%{background-position:-200% center}
+  100%{background-position:200% center}
+}
+.menu-card.highlight{
+  animation:cIn .5s ease both, spotGlow 3s ease-in-out infinite;
+}
+.menu-card.highlight .badge-hot{
+  animation:badgePulse 2s ease-in-out infinite;
+}
+.menu-card.highlight .badge-top{
+  background:linear-gradient(90deg,#C9A84C,#FFD97D,#C9A84C,#8B6914);
+  background-size:200% auto;
+  animation:goldShimmer 2.5s linear infinite;
+  color:#000;
+}
+.menu-card.highlight .btn-add{
+  animation:badgePulse 2s ease-in-out infinite;
+}
+/* Shimmer effect on card image for hot items */
+.menu-card.highlight .card-img-wrap::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.08) 50%,transparent 60%);
+  background-size:200% 100%;
+  animation:goldShimmer 2s linear infinite;
+  pointer-events:none;
+}
+
+/* ===== TIMER BAR ===== */
+.timer-bar{
+  background:linear-gradient(135deg,#0d0d0d,#1a1400,#0d0d0d);
+  border-top:1px solid rgba(201,168,76,0.4);
+  border-bottom:1px solid rgba(201,168,76,0.4);
+  padding:10px 16px;
+  position:relative;
+  overflow:hidden;
+}
+.timer-bar::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,transparent,rgba(201,168,76,0.06),transparent);
+  animation:tbarShimmer 3s linear infinite;
+}
+@keyframes tbarShimmer{
+  0%{transform:translateX(-100%)}
+  100%{transform:translateX(100%)}
+}
+.timer-bar-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;max-width:600px;margin:0 auto;
+  position:relative;z-index:1;
+}
+.tbar-left{display:flex;align-items:center;gap:6px}
+.tbar-fire{font-size:1.1rem;animation:firePulse 1s ease-in-out infinite}
+@keyframes firePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.tbar-label{
+  font-size:.58rem;font-weight:800;letter-spacing:2px;
+  color:var(--gold);text-transform:uppercase;
+  white-space:nowrap;
+}
+.tbar-digits{display:flex;align-items:center;gap:4px}
+.tbar-block{
+  background:rgba(201,168,76,0.12);
+  border:1px solid rgba(201,168,76,0.35);
+  border-radius:8px;padding:4px 8px;
+  text-align:center;min-width:38px;
+  box-shadow:0 0 10px rgba(201,168,76,0.1),inset 0 1px 0 rgba(255,255,255,0.05);
+}
+.tbar-block span{
+  font-family:'Playfair Display',serif;
+  font-size:1.1rem;font-weight:700;color:var(--gold2);
+  display:block;line-height:1;
+  text-shadow:0 0 10px rgba(240,192,64,0.5);
+}
+.tbar-unit{font-size:.42rem;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-top:1px}
+.tbar-sep{
+  font-family:'Playfair Display',serif;
+  font-size:1.1rem;font-weight:700;color:var(--gold);
+  animation:sepBlink 1s step-end infinite;
+  margin:0 1px;
+}
+@keyframes sepBlink{0%,100%{opacity:1}50%{opacity:.2}}
+.tbar-btn{
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  border:none;border-radius:50px;
+  padding:7px 14px;
+  font-family:'Montserrat',sans-serif;font-weight:800;
+  font-size:.6rem;letter-spacing:1.5px;text-transform:uppercase;
+  color:#000;cursor:pointer;white-space:nowrap;
+  box-shadow:0 4px 15px rgba(201,168,76,0.4);
+  transition:all .3s;
+  flex-shrink:0;
+}
+.tbar-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,168,76,0.6)}
+.tbar-encerrado{
+  display:flex;align-items:center;justify-content:center;
+  gap:8px;width:100%;
+  font-size:.7rem;font-weight:800;letter-spacing:2px;
+  color:#E03030;text-transform:uppercase;
+  animation:fadeIn .5s ease;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ===== BANNER ANIMATION ===== */
+/* Floating particles on hero */
+.hero{position:relative}
+.hero-particle{
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+  animation:floatPart linear infinite;
+  opacity:0;
+}
+@keyframes floatPart{
+  0%{transform:translateY(100%) scale(0);opacity:0}
+  10%{opacity:.6}
+  90%{opacity:.3}
+  100%{transform:translateY(-120px) scale(1);opacity:0}
+}
+/* Neon border pulse on hero */
+.hero::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  border:2px solid transparent;
+  pointer-events:none;
+  animation:heroBorderGlow 4s ease-in-out infinite;
+}
+@keyframes heroBorderGlow{
+  0%,100%{box-shadow:inset 0 0 0 rgba(201,168,76,0),inset 0 -40px 60px rgba(0,0,0,0.5)}
+  50%{box-shadow:inset 0 0 40px rgba(201,168,76,0.08),inset 0 -40px 60px rgba(0,0,0,0.3)}
+}
+/* Promo tag animation */
+.promo-tag{
+  position:relative;overflow:hidden;
+}
+.promo-tag::after{
+  content:'';
+  position:absolute;top:0;left:-100%;
+  width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);
+  animation:tagShine 2.5s ease-in-out infinite;
+}
+@keyframes tagShine{
+  0%{left:-100%}60%,100%{left:150%}
+}
+/* Hero title glow pulse */
+.hero-title span{
+  animation:titleGlow 3s ease-in-out infinite;
+}
+@keyframes titleGlow{
+  0%,100%{text-shadow:0 0 20px rgba(240,192,64,0.6)}
+  50%{text-shadow:0 0 40px rgba(240,192,64,1),0 0 80px rgba(240,192,64,0.4)}
+}
+/* btn-promo floating effect */
+.btn-promo{
+  animation:fadeUp .6s ease .3s both, btnFloat 3s ease-in-out 1s infinite!important;
+}
+@keyframes btnFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-4px)}
+}
+/* Remove old timer CSS that may conflict */
+.timer-row,.timer-lbl,.timer-wrap,.tblock,.tsep{display:none!important}
+
+
+/* ===== FUNDO PREMIUM ANIMADO ===== */
+body::before{
+  content:'';position:fixed;inset:0;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(201,168,76,.08),transparent 30%),
+    radial-gradient(circle at 80% 80%,rgba(240,192,64,.05),transparent 30%),
+    radial-gradient(circle at 50% 50%,rgba(255,255,255,.03),transparent 40%);
+  animation:bgMove 14s linear infinite alternate;
+  pointer-events:none;z-index:-1;
+}
+@keyframes bgMove{from{transform:translate(0,0)}to{transform:translate(-40px,-30px)}}
+
+/* ===== HEADER PREMIUM GLASS ===== */
+header{
+  backdrop-filter:blur(30px)!important;
+  -webkit-backdrop-filter:blur(30px)!important;
+  background:rgba(8,8,8,.72)!important;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  box-shadow:0 10px 40px rgba(0,0,0,.35);
+}
+
+/* ===== MODAL + CART GLASS LUXURY ===== */
+.modal,.cart-sidebar{
+  backdrop-filter:blur(35px);
+  -webkit-backdrop-filter:blur(35px);
+  background:rgba(10,10,10,.82)!important;
+  border:1px solid rgba(255,255,255,.05);
+  box-shadow:0 20px 80px rgba(0,0,0,.6),0 0 60px rgba(201,168,76,.08);
+}
+
+/* ===== CARDS 3D PREMIUM ===== */
+.menu-card{
+  position:relative;overflow:hidden;
+  transform-style:preserve-3d;perspective:1200px;
+  transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s ease,border-color .4s ease,opacity .8s ease;
+  opacity:0;
+  transform:perspective(1000px) rotateX(12deg) translateY(80px) scale(.92);
+  filter:blur(8px);
+  will-change:transform;
+  animation:none!important;
+}
+.menu-card.show{
+  opacity:1;
+  transform:perspective(1000px) rotateX(0deg) translateY(0) scale(1);
+  filter:blur(0);
+}
+.menu-card:hover{
+  transform:perspective(1400px) rotateX(4deg) rotateY(-4deg) translateY(-10px) scale(1.02)!important;
+  border-color:rgba(201,168,76,.45)!important;
+  box-shadow:0 25px 60px rgba(0,0,0,.6),0 0 40px rgba(201,168,76,.18)!important;
+}
+
+/* ===== GLOW DINÂMICO (mouse tracking) ===== */
+.menu-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at var(--x) var(--y),rgba(255,255,255,.16),transparent 35%);
+  opacity:0;transition:opacity .3s ease;pointer-events:none;z-index:2;
+}
+.menu-card:hover::before{opacity:1}
+
+/* ===== IMAGEM COM PROFUNDIDADE ===== */
+.card-img{
+  transition:transform .8s cubic-bezier(.16,1,.3,1),filter .6s ease!important;
+}
+.menu-card:hover .card-img{
+  transform:scale(1.12)!important;
+  filter:brightness(1.08) contrast(1.08)!important;
+}
+
+/* ===== BOTÕES PREMIUM (shine sweep) ===== */
+.btn-promo,.btn-add-cart,.btn-cart{position:relative;overflow:hidden}
+.btn-promo::before,.btn-add-cart::before,.btn-cart::before{
+  content:'';position:absolute;
+  top:-50%;left:-60%;
+  width:40%;height:220%;
+  background:rgba(255,255,255,.35);
+  transform:rotate(25deg);transition:.9s;
+}
+.btn-promo:hover::before,.btn-add-cart:hover::before,.btn-cart:hover::before{left:130%}
+.btn-promo:hover,.btn-add-cart:hover,.btn-cart:hover{
+  transform:translateY(-4px) scale(1.02)!important;
+  box-shadow:0 15px 40px rgba(201,168,76,.5),0 0 30px rgba(240,192,64,.3)!important;
+}
+
+/* ===== HERO CINEMATOGRÁFICO ===== */
+.hero{overflow:hidden}
+.hero-img{transform:scale(1.1);transition:transform .2s linear;will-change:transform}
+
+/* ===== TÍTULO LUXO ===== */
+.hero-title{text-shadow:0 5px 30px rgba(0,0,0,.8),0 0 40px rgba(201,168,76,.15)}
+
+/* ===== FLOATING BUTTONS ===== */
+.btn-cart,.btn-promo{animation:floating 4s ease-in-out infinite!important}
+@keyframes floating{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+
+/* ===== SCROLLBAR PREMIUM ===== */
+body::-webkit-scrollbar{width:5px}
+body::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--gold2),#8B6914);border-radius:20px}
+
+/* ===== CATEGORIAS PREMIUM ===== */
+.cat-btn{position:relative;overflow:hidden}
+.cat-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.08),transparent);
+  transform:translateX(-100%);transition:.7s;
+}
+.cat-btn:hover::before{transform:translateX(100%)}
+
+/* ===== ENTRADA HERO CINEMATOGRÁFICA ===== */
+.hero-content > *{animation:heroReveal 1s cubic-bezier(.16,1,.3,1) both}
+.hero-content > *:nth-child(1){animation-delay:.1s}
+.hero-content > *:nth-child(2){animation-delay:.2s}
+.hero-content > *:nth-child(3){animation-delay:.3s}
+.hero-content > *:nth-child(4){animation-delay:.4s}
+.hero-content > *:nth-child(5){animation-delay:.5s}
+@keyframes heroReveal{
+  from{opacity:0;transform:translateY(40px) scale(.95);filter:blur(10px)}
+  to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
+
+/* ===== HIGHLIGHT CARDS (badge hot/top) ===== */
+@keyframes spotGlow{
+  0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}
+  50%{box-shadow:0 0 35px 6px rgba(201,168,76,0.28),0 0 70px 10px rgba(201,168,76,0.1)}
+}
+@keyframes badgePulse{
+  0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(224,48,48,.4)}
+  50%{transform:scale(1.07);box-shadow:0 0 14px 4px rgba(224,48,48,.5)}
+}
+@keyframes goldShimmer{
+  0%{background-position:-200% center}
+  100%{background-position:200% center}
+}
+.menu-card.highlight.show{animation:spotGlow 3s ease-in-out infinite!important;opacity:1!important}
+.menu-card.highlight .badge-hot{animation:badgePulse 2s ease-in-out infinite}
+.menu-card.highlight .badge-top{
+  background:linear-gradient(90deg,#C9A84C,#FFD97D,#C9A84C,#8B6914);
+  background-size:200% auto;
+  animation:goldShimmer 2.5s linear infinite;color:#000;
+}
+.menu-card.highlight .card-img-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.07) 50%,transparent 60%);
+  background-size:200% 100%;
+  animation:goldShimmer 2s linear infinite;pointer-events:none;
+}
+
+
+/* ===== LOADING PREMIUM CINEMATOGRÁFICO ===== */
+#loading{
+  position:fixed;inset:0;z-index:9999;
+  background:#000;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .8s ease, visibility .8s ease;
+  overflow:hidden;
+}
+#loading.hide{opacity:0;visibility:hidden;pointer-events:none}
+
+/* Background radial glow */
+#loading::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(201,168,76,.18) 0%, transparent 60%),
+    radial-gradient(circle at 20% 80%, rgba(201,168,76,.06) 0%, transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(201,168,76,.06) 0%, transparent 40%);
+  animation:ldBgPulse 3s ease-in-out infinite;
+}
+@keyframes ldBgPulse{
+  0%,100%{opacity:.6}50%{opacity:1}
+}
+
+/* Scanlines cinematic effect */
+#loading::after{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent,transparent 2px,
+    rgba(0,0,0,.08) 2px,rgba(0,0,0,.08) 4px
+  );
+  pointer-events:none;z-index:1;
+}
+
+.ld-wrap{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:center;
+}
+
+/* Outer rotating ring */
+.ld-ring-outer{
+  position:relative;
+  width:130px;height:130px;
+  margin-bottom:32px;
+}
+.ld-ring-outer::before{
+  content:'';
+  position:absolute;inset:0;
+  border-radius:50%;
+  border:1px solid rgba(201,168,76,.15);
+  animation:ldRingPulse 2s ease-in-out infinite;
+}
+@keyframes ldRingPulse{
+  0%,100%{transform:scale(1);opacity:.3}
+  50%{transform:scale(1.08);opacity:.8}
+}
+.ld-ring{
+  position:absolute;inset:0;
+  border-radius:50%;
+  border:2px solid transparent;
+  border-top-color:var(--gold2);
+  border-right-color:rgba(201,168,76,.3);
+  animation:ldSpin 1.2s cubic-bezier(.68,-.55,.27,1.55) infinite;
+  box-shadow:0 0 20px rgba(201,168,76,.3);
+}
+@keyframes ldSpin{to{transform:rotate(360deg)}}
+
+.ld-ring-inner{
+  position:absolute;
+  inset:12px;
+  border-radius:50%;
+  border:1px solid transparent;
+  border-bottom-color:var(--gold);
+  border-left-color:rgba(201,168,76,.2);
+  animation:ldSpinRev 1.8s linear infinite;
+}
+@keyframes ldSpinRev{to{transform:rotate(-360deg)}}
+
+/* Center logo */
+.ld-center{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:2px;
+}
+.ld-star-icon{
+  font-size:1.8rem;
+  animation:ldStarScale 2s ease-in-out infinite;
+  filter:drop-shadow(0 0 12px rgba(201,168,76,.8));
+}
+@keyframes ldStarScale{
+  0%,100%{transform:scale(1);filter:drop-shadow(0 0 8px rgba(201,168,76,.6))}
+  50%{transform:scale(1.15);filter:drop-shadow(0 0 20px rgba(240,192,64,1))}
+}
+
+/* Brand name */
+.ld-brand{
+  text-align:center;margin-bottom:8px;
+}
+.ld-name{
+  font-family:'Playfair Display',serif;
+  font-size:2rem;font-weight:900;
+  letter-spacing:6px;
+  background:linear-gradient(135deg,#8B6914,#F0C040,#C9A84C,#FFD97D,#C9A84C);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:ldGoldShine 2.5s linear infinite;
+  display:block;
+}
+@keyframes ldGoldShine{
+  0%{background-position:0% center}
+  100%{background-position:200% center}
+}
+.ld-sub{
+  font-size:.5rem;letter-spacing:8px;
+  color:rgba(201,168,76,.5);
+  text-transform:uppercase;
+  display:block;margin-top:4px;
+  animation:ldFadeIn 1s ease .3s both;
+}
+@keyframes ldFadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* Tagline */
+.ld-tagline{
+  font-size:.6rem;letter-spacing:3px;
+  color:rgba(255,255,255,.25);
+  text-transform:uppercase;
+  margin-bottom:28px;
+  animation:ldFadeIn 1s ease .5s both;
+}
+
+/* Progress bar premium */
+.ld-progress{
+  width:180px;position:relative;
+  animation:ldFadeIn .8s ease .2s both;
+}
+.ld-progress-track{
+  width:100%;height:1px;
+  background:rgba(255,255,255,.08);
+  border-radius:1px;overflow:hidden;
+  margin-bottom:10px;
+}
+.ld-progress-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,transparent,var(--gold2),var(--gold),var(--gold2));
+  background-size:200% auto;
+  border-radius:1px;
+  animation:ldBarFill 1.8s cubic-bezier(.4,0,.2,1) forwards,
+             ldBarShine 1s linear infinite;
+  box-shadow:0 0 8px var(--gold2);
+}
+@keyframes ldBarFill{
+  0%{width:0%}
+  60%{width:75%}
+  80%{width:88%}
+  100%{width:100%}
+}
+@keyframes ldBarShine{
+  0%{background-position:0% center}
+  100%{background-position:200% center}
+}
+.ld-status{
+  text-align:center;
+  font-size:.52rem;letter-spacing:2px;
+  color:rgba(201,168,76,.4);
+  text-transform:uppercase;
+  animation:ldStatus 1.8s ease forwards;
+}
+@keyframes ldStatus{
+  0%{content:''}
+  30%{opacity:.6}
+  100%{opacity:.8}
+}
+
+/* Floating particles on loading */
+.ld-particle{
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+  animation:ldPartFloat linear infinite;
+}
+@keyframes ldPartFloat{
+  0%{transform:translateY(100vh) scale(0);opacity:0}
+  10%{opacity:.8}
+  90%{opacity:.3}
+  100%{transform:translateY(-100px) scale(1);opacity:0}
+}
+
+/* Corner decorations */
+.ld-corner{
+  position:absolute;width:40px;height:40px;
+  border-color:rgba(201,168,76,.2);
+  border-style:solid;
+  animation:ldCornerPulse 2s ease-in-out infinite;
+}
+.ld-corner-tl{top:20px;left:20px;border-width:1px 0 0 1px}
+.ld-corner-tr{top:20px;right:20px;border-width:1px 1px 0 0}
+.ld-corner-bl{bottom:20px;left:20px;border-width:0 0 1px 1px}
+.ld-corner-br{bottom:20px;right:20px;border-width:0 1px 1px 0}
+@keyframes ldCornerPulse{
+  0%,100%{opacity:.2;width:30px;height:30px}
+  50%{opacity:.6;width:40px;height:40px}
+}
+
+</style>
+</head>
+<body>
+
+<div id="loading">
+  <!-- Corner decorations -->
+  <div class="ld-corner ld-corner-tl"></div>
+  <div class="ld-corner ld-corner-tr"></div>
+  <div class="ld-corner ld-corner-bl"></div>
+  <div class="ld-corner ld-corner-br"></div>
+
+  <div class="ld-wrap">
+    <!-- Rings + center icon -->
+    <div class="ld-ring-outer">
+      <div class="ld-ring"></div>
+      <div class="ld-ring-inner"></div>
+      <div class="ld-center">
+        <span class="ld-star-icon">⭐</span>
+      </div>
+    </div>
+
+    <!-- Brand -->
+    <div class="ld-brand">
+      <span class="ld-name">STAR PIZZARIA</span>
+      <span class="ld-sub">Premium</span>
+    </div>
+
+    <!-- Tagline -->
+    <div class="ld-tagline">Cardápio Digital</div>
+
+    <!-- Progress -->
+    <div class="ld-progress">
+      <div class="ld-progress-track">
+        <div class="ld-progress-fill"></div>
+      </div>
+      <div class="ld-status">Preparando seu cardápio...</div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<header id="hdr">
+  <a class="hlogo" href="#">
+    <span class="hlogo-icon">⭐</span>
+    <div>
+      <span class="hlogo-name">STAR PIZZARIA</span>
+      <span class="hlogo-sub">Premium</span>
+    </div>
+  </a>
+  <div class="hright">
+    <div class="open-pill"><div class="open-dot"></div>Aberto</div>
+    <button class="btn-cart" onclick="toggleCart()">
+      🛒 Carrinho
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="banner.jpg" alt="Star Pizzaria">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="promo-tag">🔥 Oferta especial hoje</div>
+    <div class="hero-title">PROMOÇÃO<br><span>DO DIA</span></div>
+    <div class="hero-desc">Pizza Grande + Refrigerante 2L</div>
+
+    <button class="btn-promo" onclick="document.getElementById('menuTop').scrollIntoView({behavior:'smooth'})">🛵 Pedir Agora</button>
+  </div>
+  <div class="hero-feats">
+    <div class="hero-feat"><span>🛡</span>Massa Artesanal</div>
+    <div class="hero-feat"><span>🌿</span>Ingredientes Top</div>
+    <div class="hero-feat"><span>🔥</span>Forno a Lenha</div>
+    <div class="hero-feat"><span>🛵</span>Entrega Rápida</div>
+  </div>
+
+<!-- TIMER BAR -->
+<div class="timer-bar" id="timerBar">
+  <div class="timer-bar-inner">
+    <div class="tbar-left">
+      <span class="tbar-fire">🔥</span>
+      <span class="tbar-label">PROMOÇÃO ACABA EM:</span>
+    </div>
+    <div class="tbar-digits">
+      <div class="tbar-block"><span id="th">20</span><div class="tbar-unit">min</div></div>
+      <span class="tbar-sep">:</span>
+      <div class="tbar-block"><span id="tm">00</span><div class="tbar-unit">seg</div></div>
+      <span class="tbar-sep">:</span>
+      <div class="tbar-block"><span id="ts">00</span><div class="tbar-unit">ms</div></div>
+    </div>
+    <button class="tbar-btn" onclick="document.getElementById('menuTop').scrollIntoView({behavior:'smooth'})">🛵 PEDIR AGORA</button>
+  </div>
+</div>
+
+<div class="cats-sticky" id="menuTop">
+  <div class="cats">
+    <button class="cat-btn active" onclick="filterCat('all',this)"><span>🍽</span>Todas</button>
+    <button class="cat-btn" onclick="filterCat('salgada',this)"><span>🍕</span>Salgadas</button>
+    <button class="cat-btn" onclick="filterCat('doce',this)"><span>🍫</span>Doces</button>
+    <button class="cat-btn" onclick="filterCat('bebida',this)"><span>🥤</span>Bebidas</button>
+    <button class="cat-btn" onclick="filterCat('combo',this)"><span>🎁</span>Combos</button>
+  </div>
+</div>
+
+<main>
+<section class="menu-section" data-cat="salgada">
+  <div class="section-header"><div class="section-title">🍕 Pizzas Salgadas</div><div class="section-line"></div></div>
+  <div class="menu-grid">
+    <div class="menu-card" data-cat="salgada" onclick="openModal(0)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="s01.jpg" alt="Calabresa Premium" loading="lazy">
+        <div class="badge-hot">🔥 Mais Pedido</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Calabresa Premium</div>
+          <div class="card-desc">Molho artesanal de tomate, mussarela especial e calabresa defumada fatiada.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.9</span>
+            <span class="card-time">⏱ 35 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 42,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(0)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="salgada" onclick="openModal(1)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="s02.jpg" alt="Frango com Catupiry" loading="lazy">
+        <div class="badge-top">⭐ Top Avaliado</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Frango com Catupiry</div>
+          <div class="card-desc">Molho de tomate, mussarela, frango desfiado premium e catupiry original cremoso.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.8</span>
+            <span class="card-time">⏱ 35 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 44,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(1)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="salgada" onclick="openModal(2)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="s03.jpg" alt="Frango Bacon Special" loading="lazy">
+        <div class="badge-hot">🔥 Mais Pedido</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Frango Bacon Special</div>
+          <div class="card-desc">Frango desfiado, bacon crocante, milho dourado e requeijão cremoso.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.9</span>
+            <span class="card-time">⏱ 40 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 45,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(2)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="salgada" onclick="openModal(3)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="s04.jpg" alt="Frango com Tomate" loading="lazy">
+        
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Frango com Tomate</div>
+          <div class="card-desc">Frango grelhado, tomate em rodelas, milho, azeitonas e mussarela.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.7</span>
+            <span class="card-time">⏱ 35 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 44,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(3)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="salgada" onclick="openModal(4)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="s05.jpg" alt="Pepperoni Artesanal" loading="lazy">
+        <div class="badge-top">⭐ Top Avaliado</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Pepperoni Artesanal</div>
+          <div class="card-desc">Generosas fatias de pepperoni italiano, mussarela premium e molho artesanal.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.9</span>
+            <span class="card-time">⏱ 35 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 46,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(4)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="salgada" onclick="openModal(5)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="s06.jpg" alt="Presunto Especial" loading="lazy">
+        
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Presunto Especial</div>
+          <div class="card-desc">Presunto de qualidade superior, mussarela extra e molho artesanal.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.7</span>
+            <span class="card-time">⏱ 30 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 40,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(5)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="salgada" onclick="openModal(6)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="s07.jpg" alt="Atum com Azeitona" loading="lazy">
+        
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Atum com Azeitona</div>
+          <div class="card-desc">Atum importado, azeitonas verdes, cebola, milho e mussarela gratinada.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.6</span>
+            <span class="card-time">⏱ 35 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 43,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(6)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="salgada" onclick="openModal(7)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="s08.jpg" alt="Bacon Crocante" loading="lazy">
+        <div class="badge-hot">🔥 Mais Pedido</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Bacon Crocante</div>
+          <div class="card-desc">Bacon premium em cubos, milho doce, cebola caramelizada e mussarela.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.8</span>
+            <span class="card-time">⏱ 40 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 45,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(7)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="salgada" onclick="openModal(8)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="s09.jpg" alt="Frango com Milho" loading="lazy">
+        
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Frango com Milho</div>
+          <div class="card-desc">Frango grelhado, milho dourado, requeijão cremoso e mussarela.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.7</span>
+            <span class="card-time">⏱ 35 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 43,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(8)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="salgada" onclick="openModal(9)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="s10.jpg" alt="Milho Especial" loading="lazy">
+        
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Milho Especial</div>
+          <div class="card-desc">Milho selecionado, mussarela premium e molho artesanal da casa.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.6</span>
+            <span class="card-time">⏱ 30 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 40,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(9)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="salgada" onclick="openModal(10)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="s11.jpg" alt="Mussarela Clássica" loading="lazy">
+        
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Mussarela Clássica</div>
+          <div class="card-desc">Mussarela premium em abundância, molho artesanal e orégano selecionado.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.8</span>
+            <span class="card-time">⏱ 30 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 38,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(10)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="salgada" onclick="openModal(11)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="s02.jpg" alt="Portuguesa" loading="lazy">
+        <div class="badge-top">⭐ Top Avaliado</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Portuguesa</div>
+          <div class="card-desc">Molho especial, mussarela, presunto, ovos, cebola, pimentão e azeitonas.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.8</span>
+            <span class="card-time">⏱ 35 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 44,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(11)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="salgada" onclick="openModal(12)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="s03.jpg" alt="Quatro Queijos" loading="lazy">
+        <div class="badge-hot">🔥 Mais Pedido</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Quatro Queijos</div>
+          <div class="card-desc">Mussarela, parmesão, gorgonzola e provolone. Para os amantes de queijo!</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.9</span>
+            <span class="card-time">⏱ 35 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 46,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(12)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="salgada" onclick="openModal(13)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="s05.jpg" alt="Margherita Gourmet" loading="lazy">
+        <div class="badge-top">⭐ Top Avaliado</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Margherita Gourmet</div>
+          <div class="card-desc">Molho de tomate artesanal, mussarela de búfala, tomate cereja e manjericão.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.9</span>
+            <span class="card-time">⏱ 35 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 47,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(13)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="salgada" onclick="openModal(14)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="s08.jpg" alt="Carne Seca Premium" loading="lazy">
+        <div class="badge-hot">🔥 Mais Pedido</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Carne Seca Premium</div>
+          <div class="card-desc">Carne seca desfiada, cebola caramelizada, catupiry e mussarela.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 5.0</span>
+            <span class="card-time">⏱ 40 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 48,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(14)">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu-section" data-cat="doce">
+  <div class="section-header"><div class="section-title">🍫 Pizzas Doces</div><div class="section-line"></div></div>
+  <div class="menu-grid">
+    <div class="menu-card" data-cat="doce" onclick="openModal(15)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="c01.jpg" alt="Chocolate com Morango" loading="lazy">
+        <div class="badge-hot">🔥 Mais Pedido</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Chocolate com Morango</div>
+          <div class="card-desc">Nutella cremosa, morangos frescos selecionados e granulado de chocolate belga.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 5.0</span>
+            <span class="card-time">⏱ 35 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 42,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(15)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="doce" onclick="openModal(16)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="c02.jpg" alt="Brigadeiro Premium" loading="lazy">
+        <div class="badge-top">⭐ Top Avaliado</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Brigadeiro Premium</div>
+          <div class="card-desc">Chocolate belga, brigadeiro artesanal, granulado e morangos frescos.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.9</span>
+            <span class="card-time">⏱ 35 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 44,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(16)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="doce" onclick="openModal(17)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="c03.jpg" alt="Romeu e Julieta" loading="lazy">
+        
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Romeu e Julieta</div>
+          <div class="card-desc">Goiabada cascão, cream cheese, raspas de limão e hortelã.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.7</span>
+            <span class="card-time">⏱ 30 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 40,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(17)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="doce" onclick="openModal(18)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="c01.jpg" alt="Banana com Canela" loading="lazy">
+        
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Banana com Canela</div>
+          <div class="card-desc">Banana caramelizada, canela especial, leite condensado e coco ralado.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.8</span>
+            <span class="card-time">⏱ 30 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 40,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(18)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="doce" onclick="openModal(19)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="c02.jpg" alt="Prestígio" loading="lazy">
+        
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Prestígio</div>
+          <div class="card-desc">Chocolate ao leite, coco ralado, leite condensado e granulado crocante.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.7</span>
+            <span class="card-time">⏱ 35 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 42,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(19)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="doce" onclick="openModal(20)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="c03.jpg" alt="Ninho com Nutella" loading="lazy">
+        <div class="badge-top">⭐ Top Avaliado</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Ninho com Nutella</div>
+          <div class="card-desc">Leite ninho cremoso, nutella premium, granulado e leite condensado.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.9</span>
+            <span class="card-time">⏱ 35 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">A partir de R$</div>
+            <div class="card-price">R$ 45,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(20)">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu-section" data-cat="bebida">
+  <div class="section-header"><div class="section-title">🥤 Bebidas</div><div class="section-line"></div></div>
+  <div class="menu-grid">
+    <div class="menu-card" data-cat="bebida" onclick="openModal(21)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="b01.jpg" alt="Coca-Cola 2L" loading="lazy">
+        
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Coca-Cola 2L</div>
+          <div class="card-desc">Refrigerante gelado sabor original. A escolha perfeita para sua pizza!</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 5.0</span>
+            <span class="card-time">⏱ —</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">R$</div>
+            <div class="card-price">R$ 12,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(21)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="bebida" onclick="openModal(22)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="b02.jpg" alt="Refrigerante Lata" loading="lazy">
+        
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Refrigerante Lata</div>
+          <div class="card-desc">Variados: Coca-Cola, Guaraná, Sprite. Gelado e refrescante!</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.8</span>
+            <span class="card-time">⏱ —</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">R$</div>
+            <div class="card-price">R$ 6,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(22)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="bebida" onclick="openModal(23)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="b03.jpg" alt="Red Bull Energy" loading="lazy">
+        
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Red Bull Energy</div>
+          <div class="card-desc">Energético Red Bull gelado. Original e versões saborizadas.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.7</span>
+            <span class="card-time">⏱ —</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">R$</div>
+            <div class="card-price">R$ 12,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(23)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="bebida" onclick="openModal(24)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="b04.jpg" alt="Suco de Laranja Natural" loading="lazy">
+        
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Suco de Laranja Natural</div>
+          <div class="card-desc">Suco feito na hora com laranjas selecionadas. Fresco e delicioso!</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.9</span>
+            <span class="card-time">⏱ —</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">R$</div>
+            <div class="card-price">R$ 10,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(24)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="bebida" onclick="openModal(25)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="b05.jpg" alt="Limonada Especial" loading="lazy">
+        
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Limonada Especial</div>
+          <div class="card-desc">Limonada suíça cremosa ou tradicional feita na hora.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.9</span>
+            <span class="card-time">⏱ —</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">R$</div>
+            <div class="card-price">R$ 10,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(25)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="bebida" onclick="openModal(26)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="b06.jpg" alt="Água Mineral" loading="lazy">
+        
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Água Mineral</div>
+          <div class="card-desc">Água pura gelada, com ou sem gás. Hidratação premium!</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.8</span>
+            <span class="card-time">⏱ —</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">R$</div>
+            <div class="card-price">R$ 4,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(26)">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu-section" data-cat="combo">
+  <div class="section-header"><div class="section-title">🎁 Combos Premium</div><div class="section-line"></div></div>
+  <div class="menu-grid">
+    <div class="menu-card" data-cat="combo" onclick="openModal(27)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="s05.jpg" alt="Combo Star Classic" loading="lazy">
+        <div class="badge-hot">🔥 Mais Pedido</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Combo Star Classic</div>
+          <div class="card-desc">Pizza Grande Calabresa + Coca-Cola 2L. O combo mais pedido!</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.9</span>
+            <span class="card-time">⏱ 40 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">R$</div>
+            <div class="card-price">R$ 62,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(27)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="combo" onclick="openModal(28)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="s03.jpg" alt="Combo Família" loading="lazy">
+        <div class="badge-top">⭐ Top Avaliado</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Combo Família</div>
+          <div class="card-desc">Pizza Grande + Refrigerante 2L + 2 Sobremesas. Para reunir a família!</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.9</span>
+            <span class="card-time">⏱ 45 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">R$</div>
+            <div class="card-price">R$ 84,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(28)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="combo" onclick="openModal(29)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="c01.jpg" alt="Combo Casal" loading="lazy">
+        
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Combo Casal</div>
+          <div class="card-desc">Pizza Média + Pizza Doce Pequena + 2 Refrigerantes Lata.</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 4.8</span>
+            <span class="card-time">⏱ 40 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">R$</div>
+            <div class="card-price">R$ 72,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(29)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="combo" onclick="openModal(30)">
+      <div class="card-img-wrap">
+        <img class="card-img" src="s08.jpg" alt="Combo Premium VIP" loading="lazy">
+        <div class="badge-top">⭐ Top Avaliado</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="card-name">Combo Premium VIP</div>
+          <div class="card-desc">2 Pizzas Grandes + Refrigerante 2L + 4 Latas. Para celebrações!</div>
+          <div class="card-meta">
+            <span class="card-stars">⭐ 5.0</span>
+            <span class="card-time">⏱ 50 min</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-from">R$</div>
+            <div class="card-price">R$ 119,90</div>
+          </div>
+          <button class="btn-add" onclick="event.stopPropagation();openModal(30)">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="ft-logo">⭐ STAR PIZZARIA</div>
+  <div class="ft-hours">🕐 Segunda a Domingo • 18h às 23h • Delivery & Retirada</div>
+  <div class="ft-copy">© 2025 STAR PIZZARIA • CARDÁPIO DIGITAL PREMIUM</div>
+</footer>
+
+<div class="float-cart" id="floatCart">
+  <button class="float-btn" onclick="toggleCart()">
+    <div class="float-left"><span class="float-cnt" id="floatCnt">0</span><span>Ver Carrinho</span></div>
+    <span id="floatTotal">R$ 0,00</span>
+  </button>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <img class="modal-img" id="mImg" src="" alt="">
+      <div class="modal-title-wrap">
+        <div class="modal-name" id="mName"></div>
+        <div class="modal-desc" id="mDesc"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="szSec">
+        <div class="opt-title">📏 Tamanho</div>
+        <div class="size-grid">
+          <div class="size-opt" onclick="selSize(this,'small')" id="szSm"><span class="size-lbl">Pequena</span><span class="size-px" id="pxSm">R$ 0</span><div class="size-sl">6 fatias</div></div>
+          <div class="size-opt sel" onclick="selSize(this,'medium')" id="szMd"><span class="size-lbl">Média</span><span class="size-px" id="pxMd">R$ 0</span><div class="size-sl">8 fatias</div></div>
+          <div class="size-opt" onclick="selSize(this,'large')" id="szLg"><span class="size-lbl">Grande</span><span class="size-px" id="pxLg">R$ 0</span><div class="size-sl">12 fatias</div></div>
+        </div>
+      </div>
+      <div id="hfSec">
+        <div class="opt-title">🍕 Meio a Meio</div>
+        <div class="half-toggle" onclick="toggleHalf()">
+          <div class="half-left"><span class="half-icon">½</span><div><div class="half-main">Escolher Meio a Meio</div><div class="half-sub">Selecione 2 sabores diferentes</div></div></div>
+          <div class="tswitch" id="htSwitch"><div class="tknob"></div></div>
+        </div>
+        <div class="half-sel" id="hfSel">
+          <div class="half-row"><span class="half-lbl">½ A</span><select class="half-select" id="hf1"><option value="Calabresa Premium">Calabresa Premium</option><option value="Frango com Catupiry">Frango com Catupiry</option><option value="Frango Bacon Special">Frango Bacon Special</option><option value="Frango com Tomate">Frango com Tomate</option><option value="Pepperoni Artesanal">Pepperoni Artesanal</option><option value="Presunto Especial">Presunto Especial</option><option value="Atum com Azeitona">Atum com Azeitona</option><option value="Bacon Crocante">Bacon Crocante</option><option value="Frango com Milho">Frango com Milho</option><option value="Milho Especial">Milho Especial</option><option value="Mussarela Clássica">Mussarela Clássica</option><option value="Portuguesa">Portuguesa</option><option value="Quatro Queijos">Quatro Queijos</option><option value="Margherita Gourmet">Margherita Gourmet</option><option value="Carne Seca Premium">Carne Seca Premium</option></select></div>
+          <div class="half-row"><span class="half-lbl">½ B</span><select class="half-select" id="hf2"><option value="Calabresa Premium">Calabresa Premium</option><option value="Frango com Catupiry">Frango com Catupiry</option><option value="Frango Bacon Special">Frango Bacon Special</option><option value="Frango com Tomate">Frango com Tomate</option><option value="Pepperoni Artesanal">Pepperoni Artesanal</option><option value="Presunto Especial">Presunto Especial</option><option value="Atum com Azeitona">Atum com Azeitona</option><option value="Bacon Crocante">Bacon Crocante</option><option value="Frango com Milho">Frango com Milho</option><option value="Milho Especial">Milho Especial</option><option value="Mussarela Clássica">Mussarela Clássica</option><option value="Portuguesa">Portuguesa</option><option value="Quatro Queijos">Quatro Queijos</option><option value="Margherita Gourmet">Margherita Gourmet</option><option value="Carne Seca Premium">Carne Seca Premium</option></select></div>
+        </div>
+      </div>
+      <div>
+        <div class="opt-title">🧀 Borda Recheada</div>
+        <div class="crust-grid">
+          <div class="crust-opt sel" onclick="selCrust(this,'none',0)"><div class="ccheck"><div class="ccheck-dot"></div></div><div><div class="cname">Sem Borda</div><div class="cextra">Incluído</div></div></div>
+          <div class="crust-opt" onclick="selCrust(this,'requeijao',5)"><div class="ccheck"><div class="ccheck-dot"></div></div><div><div class="cname">Requeijão</div><div class="cextra">+ R$ 5,00</div></div></div>
+          <div class="crust-opt" onclick="selCrust(this,'cheddar',6)"><div class="ccheck"><div class="ccheck-dot"></div></div><div><div class="cname">Cheddar</div><div class="cextra">+ R$ 6,00</div></div></div>
+          <div class="crust-opt" onclick="selCrust(this,'chocolate',5)"><div class="ccheck"><div class="ccheck-dot"></div></div><div><div class="cname">Chocolate 🍫</div><div class="cextra">+ R$ 5,00</div></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="opt-title">📝 Observações</div>
+        <textarea class="obs-ta" id="obsTa" placeholder="Ex: Sem cebola, bem assada, ketchup extra..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="qty-ctrl">
+        <button class="qty-btn" onclick="chQty(-1)">−</button>
+        <span class="qty-n" id="mQty">1</span>
+        <button class="qty-btn" onclick="chQty(1)">+</button>
+      </div>
+      <button class="btn-add-cart" onclick="addToCart()">
+        <span>Adicionar ao Carrinho</span>
+        <span class="bap-price" id="mPrice">R$ 0,00</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="backdrop" id="backdrop" onclick="closeCart()"></div>
+
+<div class="cart-sidebar" id="cartSb">
+  <div class="cart-hdr">
+    <div class="cart-hdr-title">🛒 Meu Carrinho</div>
+    <button class="cart-x" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty" id="cartEmpty"><div class="ce-icon">🛒</div><div class="ce-text">Carrinho vazio</div></div>
+  </div>
+  <div class="cart-ftr" id="cartFtr" style="display:none">
+    <div class="cart-tots">
+      <div class="cr"><span>Subtotal</span><span id="cSub">R$ 0,00</span></div>
+      <div class="cr"><span>Taxa de entrega</span><span>R$ 8,00</span></div>
+      <div class="cr total"><span>Total</span><span id="cTot">R$ 0,00</span></div>
+    </div>
+    <button class="btn-checkout" onclick="openCheckout()">Finalizar Pedido →</button>
+  </div>
+</div>
+
+<div class="ck-screen" id="ckScreen">
+  <div class="ck-top">
+    <button class="ck-back" onclick="closeCheckout()">←</button>
+    <div class="ck-ttitle">🔒 Finalizar Pedido</div>
+    <div class="ck-secure">🔒 Ambiente seguro</div>
+  </div>
+  <div class="ck-content">
+    <div class="ck-section">
+      <div class="ck-sec-title">👤 Seus Dados</div>
+      <div class="fgrid">
+        <div class="frow">
+          <div class="ffield"><label class="flbl">Nome Completo</label><input class="finput" id="fNome" placeholder="Seu nome completo"></div>
+          <div class="ffield"><label class="flbl">Telefone</label><input class="finput" id="fTel" type="tel" placeholder="(11) 99999-9999"></div>
+        </div>
+        <div class="ffield"><label class="flbl">Endereço Completo</label><input class="finput" id="fEnd" placeholder="Rua, número"></div>
+        <div class="frow">
+          <div class="ffield"><label class="flbl">CEP</label><input class="finput" id="fCep" placeholder="00000-000"></div>
+          <div class="ffield"><label class="flbl">Bairro</label><input class="finput" id="fBairro" placeholder="Seu bairro"></div>
+        </div>
+        <div class="ffield"><label class="flbl">Complemento (opcional)</label><input class="finput" id="fComp" placeholder="Apto, bloco, referência..."></div>
+      </div>
+    </div>
+    <div class="ck-section">
+      <div class="ck-sec-title">💳 Forma de Pagamento</div>
+      <div class="pay-opts">
+        <div class="pay-opt sel" onclick="selPay(this,'pix')"><div class="pradio"><div class="pradio-dot"></div></div><span class="pay-icon">💠</span><div><div class="pay-name">PIX</div><div class="pay-desc">Aprovação instantânea</div></div></div>
+        <div class="pay-opt" onclick="selPay(this,'cartao')"><div class="pradio"><div class="pradio-dot"></div></div><span class="pay-icon">💳</span><div><div class="pay-name">Cartão Crédito / Débito</div><div class="pay-desc">Todas as bandeiras aceitas</div></div></div>
+        <div class="pay-opt" onclick="selPay(this,'dinheiro')"><div class="pradio"><div class="pradio-dot"></div></div><span class="pay-icon">💵</span><div><div class="pay-name">Dinheiro</div><div class="pay-desc">Informe se precisa de troco</div></div></div>
+      </div>
+      <div class="troco-wrap" id="trocoWrap">
+        <span class="troco-lbl">Troco?</span>
+        <div class="troco-btns">
+          <button class="troco-btn active" id="tBtnN" onclick="setTroco(false)">Não</button>
+          <button class="troco-btn" id="tBtnS" onclick="setTroco(true)">Sim</button>
+        </div>
+        <div class="troco-inp" id="trocoInp"><input class="finput" id="fTroco" type="number" placeholder="Troco para R$..." style="width:100%"></div>
+      </div>
+    </div>
+    <div class="ck-section">
+      <div class="ck-sec-title">🛒 Resumo do Pedido</div>
+      <div class="os" id="osSummary"></div>
+    </div>
+    <div class="total-box">
+      <div class="trow"><span>Subtotal</span><span id="ckSub">R$ 0,00</span></div>
+      <div class="trow"><span>Taxa de entrega</span><span>R$ 8,00</span></div>
+      <div class="trow grand"><span>TOTAL GERAL</span><span id="ckTot">R$ 0,00</span></div>
+    </div>
+    <button class="btn-wa" onclick="sendWA()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      ENVIAR PEDIDO PELO WHATSAPP
+    </button>
+    <div class="wa-sub">Seu pedido será enviado formatado para o WhatsApp</div>
+  </div>
+</div>
+
+<script>
+const IMGS={
+  "pizza01": "s01.jpg",
+  "pizza08": "s02.jpg",
+  "pizza12": "s03.jpg",
+  "pizza14": "s04.jpg",
+  "pizza15": "s05.jpg",
+  "pizza16": "s06.jpg",
+  "pizza17": "s07.jpg",
+  "pizza18": "s08.jpg",
+  "pizza20": "s09.jpg",
+  "pizza21": "s10.jpg",
+  "pizza22": "s11.jpg",
+  "doce1": "c01.jpg",
+  "doce2": "c02.jpg",
+  "doce3": "c03.jpg",
+  "coca": "b01.jpg",
+  "lata_vm": "b02.jpg",
+  "redbull": "b03.jpg",
+  "laranja": "b04.jpg",
+  "limonada": "b05.jpg",
+  "agua": "b06.jpg"
+};
+const MENU=[{"cat": "salgada", "imgKey": "pizza01", "name": "Calabresa Premium", "desc": "Molho artesanal de tomate, mussarela especial e calabresa defumada fatiada.", "priceSmall": 42.9, "priceMed": 49.9, "priceLarge": 59.9, "stars": "⭐ 4.9", "time": "35 min", "badge": "hot"}, {"cat": "salgada", "imgKey": "pizza08", "name": "Frango com Catupiry", "desc": "Molho de tomate, mussarela, frango desfiado premium e catupiry original cremoso.", "priceSmall": 44.9, "priceMed": 54.9, "priceLarge": 62.9, "stars": "⭐ 4.8", "time": "35 min", "badge": "top"}, {"cat": "salgada", "imgKey": "pizza12", "name": "Frango Bacon Special", "desc": "Frango desfiado, bacon crocante, milho dourado e requeijão cremoso.", "priceSmall": 45.9, "priceMed": 55.9, "priceLarge": 64.9, "stars": "⭐ 4.9", "time": "40 min", "badge": "hot"}, {"cat": "salgada", "imgKey": "pizza14", "name": "Frango com Tomate", "desc": "Frango grelhado, tomate em rodelas, milho, azeitonas e mussarela.", "priceSmall": 44.9, "priceMed": 54.9, "priceLarge": 63.9, "stars": "⭐ 4.7", "time": "35 min", "badge": null}, {"cat": "salgada", "imgKey": "pizza15", "name": "Pepperoni Artesanal", "desc": "Generosas fatias de pepperoni italiano, mussarela premium e molho artesanal.", "priceSmall": 46.9, "priceMed": 56.9, "priceLarge": 65.9, "stars": "⭐ 4.9", "time": "35 min", "badge": "top"}, {"cat": "salgada", "imgKey": "pizza16", "name": "Presunto Especial", "desc": "Presunto de qualidade superior, mussarela extra e molho artesanal.", "priceSmall": 40.9, "priceMed": 50.9, "priceLarge": 59.9, "stars": "⭐ 4.7", "time": "30 min", "badge": null}, {"cat": "salgada", "imgKey": "pizza17", "name": "Atum com Azeitona", "desc": "Atum importado, azeitonas verdes, cebola, milho e mussarela gratinada.", "priceSmall": 43.9, "priceMed": 53.9, "priceLarge": 62.9, "stars": "⭐ 4.6", "time": "35 min", "badge": null}, {"cat": "salgada", "imgKey": "pizza18", "name": "Bacon Crocante", "desc": "Bacon premium em cubos, milho doce, cebola caramelizada e mussarela.", "priceSmall": 45.9, "priceMed": 55.9, "priceLarge": 64.9, "stars": "⭐ 4.8", "time": "40 min", "badge": "hot"}, {"cat": "salgada", "imgKey": "pizza20", "name": "Frango com Milho", "desc": "Frango grelhado, milho dourado, requeijão cremoso e mussarela.", "priceSmall": 43.9, "priceMed": 53.9, "priceLarge": 61.9, "stars": "⭐ 4.7", "time": "35 min", "badge": null}, {"cat": "salgada", "imgKey": "pizza21", "name": "Milho Especial", "desc": "Milho selecionado, mussarela premium e molho artesanal da casa.", "priceSmall": 40.9, "priceMed": 50.9, "priceLarge": 58.9, "stars": "⭐ 4.6", "time": "30 min", "badge": null}, {"cat": "salgada", "imgKey": "pizza22", "name": "Mussarela Clássica", "desc": "Mussarela premium em abundância, molho artesanal e orégano selecionado.", "priceSmall": 38.9, "priceMed": 48.9, "priceLarge": 56.9, "stars": "⭐ 4.8", "time": "30 min", "badge": null}, {"cat": "salgada", "imgKey": "pizza08", "name": "Portuguesa", "desc": "Molho especial, mussarela, presunto, ovos, cebola, pimentão e azeitonas.", "priceSmall": 44.9, "priceMed": 54.9, "priceLarge": 62.9, "stars": "⭐ 4.8", "time": "35 min", "badge": "top"}, {"cat": "salgada", "imgKey": "pizza12", "name": "Quatro Queijos", "desc": "Mussarela, parmesão, gorgonzola e provolone. Para os amantes de queijo!", "priceSmall": 46.9, "priceMed": 56.9, "priceLarge": 65.9, "stars": "⭐ 4.9", "time": "35 min", "badge": "hot"}, {"cat": "salgada", "imgKey": "pizza15", "name": "Margherita Gourmet", "desc": "Molho de tomate artesanal, mussarela de búfala, tomate cereja e manjericão.", "priceSmall": 47.9, "priceMed": 57.9, "priceLarge": 67.9, "stars": "⭐ 4.9", "time": "35 min", "badge": "top"}, {"cat": "salgada", "imgKey": "pizza18", "name": "Carne Seca Premium", "desc": "Carne seca desfiada, cebola caramelizada, catupiry e mussarela.", "priceSmall": 48.9, "priceMed": 58.9, "priceLarge": 68.9, "stars": "⭐ 5.0", "time": "40 min", "badge": "hot"}, {"cat": "doce", "imgKey": "doce1", "name": "Chocolate com Morango", "desc": "Nutella cremosa, morangos frescos selecionados e granulado de chocolate belga.", "priceSmall": 42.9, "priceMed": 52.9, "priceLarge": 60.9, "stars": "⭐ 5.0", "time": "35 min", "badge": "hot"}, {"cat": "doce", "imgKey": "doce2", "name": "Brigadeiro Premium", "desc": "Chocolate belga, brigadeiro artesanal, granulado e morangos frescos.", "priceSmall": 44.9, "priceMed": 54.9, "priceLarge": 62.9, "stars": "⭐ 4.9", "time": "35 min", "badge": "top"}, {"cat": "doce", "imgKey": "doce3", "name": "Romeu e Julieta", "desc": "Goiabada cascão, cream cheese, raspas de limão e hortelã.", "priceSmall": 40.9, "priceMed": 50.9, "priceLarge": 58.9, "stars": "⭐ 4.7", "time": "30 min", "badge": null}, {"cat": "doce", "imgKey": "doce1", "name": "Banana com Canela", "desc": "Banana caramelizada, canela especial, leite condensado e coco ralado.", "priceSmall": 40.9, "priceMed": 50.9, "priceLarge": 58.9, "stars": "⭐ 4.8", "time": "30 min", "badge": null}, {"cat": "doce", "imgKey": "doce2", "name": "Prestígio", "desc": "Chocolate ao leite, coco ralado, leite condensado e granulado crocante.", "priceSmall": 42.9, "priceMed": 52.9, "priceLarge": 60.9, "stars": "⭐ 4.7", "time": "35 min", "badge": null}, {"cat": "doce", "imgKey": "doce3", "name": "Ninho com Nutella", "desc": "Leite ninho cremoso, nutella premium, granulado e leite condensado.", "priceSmall": 45.9, "priceMed": 55.9, "priceLarge": 64.9, "stars": "⭐ 4.9", "time": "35 min", "badge": "top"}, {"cat": "bebida", "imgKey": "coca", "name": "Coca-Cola 2L", "desc": "Refrigerante gelado sabor original. A escolha perfeita para sua pizza!", "priceSmall": 12.9, "priceMed": 0, "priceLarge": 0, "stars": "⭐ 5.0", "time": "—", "badge": null}, {"cat": "bebida", "imgKey": "lata_vm", "name": "Refrigerante Lata", "desc": "Variados: Coca-Cola, Guaraná, Sprite. Gelado e refrescante!", "priceSmall": 6.9, "priceMed": 0, "priceLarge": 0, "stars": "⭐ 4.8", "time": "—", "badge": null}, {"cat": "bebida", "imgKey": "redbull", "name": "Red Bull Energy", "desc": "Energético Red Bull gelado. Original e versões saborizadas.", "priceSmall": 12.9, "priceMed": 0, "priceLarge": 0, "stars": "⭐ 4.7", "time": "—", "badge": null}, {"cat": "bebida", "imgKey": "laranja", "name": "Suco de Laranja Natural", "desc": "Suco feito na hora com laranjas selecionadas. Fresco e delicioso!", "priceSmall": 10.9, "priceMed": 0, "priceLarge": 0, "stars": "⭐ 4.9", "time": "—", "badge": null}, {"cat": "bebida", "imgKey": "limonada", "name": "Limonada Especial", "desc": "Limonada suíça cremosa ou tradicional feita na hora.", "priceSmall": 10.9, "priceMed": 0, "priceLarge": 0, "stars": "⭐ 4.9", "time": "—", "badge": null}, {"cat": "bebida", "imgKey": "agua", "name": "Água Mineral", "desc": "Água pura gelada, com ou sem gás. Hidratação premium!", "priceSmall": 4.9, "priceMed": 0, "priceLarge": 0, "stars": "⭐ 4.8", "time": "—", "badge": null}, {"cat": "combo", "imgKey": "pizza15", "name": "Combo Star Classic", "desc": "Pizza Grande Calabresa + Coca-Cola 2L. O combo mais pedido!", "priceSmall": 0, "priceMed": 0, "priceLarge": 62.9, "stars": "⭐ 4.9", "time": "40 min", "badge": "hot"}, {"cat": "combo", "imgKey": "pizza12", "name": "Combo Família", "desc": "Pizza Grande + Refrigerante 2L + 2 Sobremesas. Para reunir a família!", "priceSmall": 0, "priceMed": 0, "priceLarge": 84.9, "stars": "⭐ 4.9", "time": "45 min", "badge": "top"}, {"cat": "combo", "imgKey": "doce1", "name": "Combo Casal", "desc": "Pizza Média + Pizza Doce Pequena + 2 Refrigerantes Lata.", "priceSmall": 0, "priceMed": 0, "priceLarge": 72.9, "stars": "⭐ 4.8", "time": "40 min", "badge": null}, {"cat": "combo", "imgKey": "pizza18", "name": "Combo Premium VIP", "desc": "2 Pizzas Grandes + Refrigerante 2L + 4 Latas. Para celebrações!", "priceSmall": 0, "priceMed": 0, "priceLarge": 119.9, "stars": "⭐ 5.0", "time": "50 min", "badge": "top"}];
+
+let cart=[], curIdx=null, curSize='medium', curCrust='none', curCrustPrice=0, curQty=1, halfOn=false, curPay='pix';
+
+// LOADING
+
+/* ===== LOADING PARTICLES ===== */
+(function(){
+  const ld = document.getElementById('loading');
+  if(!ld) return;
+  const colors = ['rgba(201,168,76,0.7)','rgba(240,192,64,0.5)','rgba(255,217,125,0.4)'];
+  for(let i=0;i<16;i++){
+    const p = document.createElement('div');
+    p.className = 'ld-particle';
+    const sz = 2 + Math.random()*4;
+    p.style.cssText = `
+      width:${sz}px;height:${sz}px;
+      background:${colors[i%colors.length]};
+      left:${Math.random()*100}%;
+      animation-duration:${4+Math.random()*6}s;
+      animation-delay:${Math.random()*4}s;
+      box-shadow:0 0 ${sz*3}px ${colors[i%colors.length]};
+    `;
+    ld.appendChild(p);
+  }
+})();
+
+
+/* ===== LOADING STATUS TEXT ===== */
+(function(){
+  const msgs = ['Preparando seu cardápio...','Carregando sabores...','Quase pronto...','Bem-vindo! ⭐'];
+  let i = 0;
+  const el = document.querySelector('.ld-status');
+  if(!el) return;
+  const iv = setInterval(()=>{
+    i++;
+    if(i < msgs.length){
+      el.style.opacity='0';
+      setTimeout(()=>{el.textContent=msgs[i];el.style.opacity='1';},200);
+    } else {
+      clearInterval(iv);
+    }
+  }, 500);
+})();
+
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loading').classList.add('hide'),2200));
+
+// SCROLL HEADER
+// scroll handled by premium JS below
+
+// TIMER — 20 min, auto-restart
+(function(){
+  const DURATION = 20 * 60 * 1000; // 20 minutes
+  let end = Date.now() + DURATION;
+  const bar = document.getElementById('timerBar');
+
+  function restart(){
+    end = Date.now() + DURATION;
+    if(bar){
+      bar.querySelector('.timer-bar-inner').innerHTML = `
+        <div class="tbar-left">
+          <span class="tbar-fire">🔥</span>
+          <span class="tbar-label">PROMOÇÃO ACABA EM:</span>
+        </div>
+        <div class="tbar-digits">
+          <div class="tbar-block"><span id="th">20</span><div class="tbar-unit">min</div></div>
+          <span class="tbar-sep">:</span>
+          <div class="tbar-block"><span id="tm">00</span><div class="tbar-unit">seg</div></div>
+          <span class="tbar-sep">:</span>
+          <div class="tbar-block"><span id="ts">00</span><div class="tbar-unit">ms</div></div>
+        </div>
+        <button class="tbar-btn" onclick="document.getElementById('menuTop').scrollIntoView({behavior:'smooth'})">🛵 PEDIR AGORA</button>
+      `;
+    }
+  }
+
+  function tick(){
+    const d = end - Date.now();
+    if(d <= 0){
+      // Show encerrado for 3s then restart
+      const inner = bar ? bar.querySelector('.timer-bar-inner') : null;
+      if(inner){
+        inner.innerHTML = '<div class="tbar-encerrado">🔴 PROMOÇÃO ENCERRADA — Aguarde...</div>';
+      }
+      setTimeout(restart, 3000);
+      return;
+    }
+    const m = Math.floor(d / 60000);
+    const s = Math.floor((d % 60000) / 1000);
+    const ms = Math.floor((d % 1000) / 10);
+    const thEl = document.getElementById('th');
+    const tmEl = document.getElementById('tm');
+    const tsEl = document.getElementById('ts');
+    if(thEl) thEl.textContent = String(m).padStart(2,'0');
+    if(tmEl) tmEl.textContent = String(s).padStart(2,'0');
+    if(tsEl) tsEl.textContent = String(ms).padStart(2,'0');
+  }
+  tick();
+  setInterval(tick, 50); // update every 50ms for smooth ms display
+})();
+
+// FILTER
+function filterCat(cat,btn){
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.menu-section').forEach(s=>s.style.display=(cat==='all'||s.dataset.cat===cat)?'':'none');
+}
+
+// MODAL
+function openModal(idx){
+  const it=MENU[idx]; curIdx=idx; curSize=it.cat==='bebida'?'single':'medium';
+  curCrust='none'; curCrustPrice=0; curQty=1; halfOn=false;
+  document.getElementById('mImg').src=IMGS[it.imgKey];
+  document.getElementById('mName').textContent=it.name;
+  document.getElementById('mDesc').textContent=it.desc;
+  document.getElementById('mQty').textContent='1';
+  document.getElementById('obsTa').value='';
+  const isBev=it.cat==='bebida', isCombo=it.cat==='combo', isSal=it.cat==='salgada';
+  document.getElementById('szSec').style.display=isBev?'none':'';
+  document.getElementById('hfSec').style.display=isSal?'':'none';
+  document.getElementById('htSwitch').classList.remove('on');
+  document.getElementById('hfSel').classList.remove('show');
+  if(!isBev&&!isCombo){
+    document.getElementById('pxSm').textContent='R$ '+fmt(it.priceSmall);
+    document.getElementById('pxMd').textContent='R$ '+fmt(it.priceMed);
+    document.getElementById('pxLg').textContent='R$ '+fmt(it.priceLarge);
+  }
+  document.querySelectorAll('.size-opt').forEach(s=>s.classList.remove('sel'));
+  if(isCombo){document.getElementById('szLg').classList.add('sel');curSize='large';
+    document.getElementById('pxSm').textContent='—';document.getElementById('pxMd').textContent='—';
+    document.getElementById('pxLg').textContent='R$ '+fmt(it.priceLarge);
+  }else if(!isBev)document.getElementById('szMd').classList.add('sel');
+  document.querySelectorAll('.crust-opt').forEach(c=>c.classList.remove('sel'));
+  document.querySelector('.crust-opt').classList.add('sel');
+  updMPrice();
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';}
+function selSize(el,sz){document.querySelectorAll('.size-opt').forEach(s=>s.classList.remove('sel'));el.classList.add('sel');curSize=sz;updMPrice();}
+function toggleHalf(){halfOn=!halfOn;document.getElementById('htSwitch').classList.toggle('on',halfOn);document.getElementById('hfSel').classList.toggle('show',halfOn);}
+function selCrust(el,t,p){document.querySelectorAll('.crust-opt').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');curCrust=t;curCrustPrice=p;updMPrice();}
+function chQty(d){curQty=Math.max(1,curQty+d);document.getElementById('mQty').textContent=curQty;updMPrice();}
+function getBase(){const it=MENU[curIdx];if(it.cat==='bebida')return it.priceSmall;if(it.cat==='combo')return it.priceLarge;return curSize==='small'?it.priceSmall:curSize==='medium'?it.priceMed:it.priceLarge;}
+function updMPrice(){const t=(getBase()+curCrustPrice)*curQty;document.getElementById('mPrice').textContent='R$ '+fmt(t);}
+function fmt(n){return n.toFixed(2).replace('.',',');}
+
+function addToCart(){
+  const it=MENU[curIdx],base=getBase(),total=(base+curCrustPrice)*curQty;
+  const szL={small:'Pequena',medium:'Média',large:'Grande',single:''};
+  const crL={none:'Sem borda',requeijao:'Borda Requeijão',cheddar:'Borda Cheddar',chocolate:'Borda Chocolate'};
+  let details=[];
+  if(it.cat!=='bebida')details.push(szL[curSize]);
+  if(halfOn){const h1=document.getElementById('hf1').value,h2=document.getElementById('hf2').value;details.push('½ '+h1+' / ½ '+h2);}
+  if(curCrust!=='none')details.push(crL[curCrust]);
+  const obs=document.getElementById('obsTa').value.trim();
+  cart.push({id:Date.now(),name:it.name,imgKey:it.imgKey,details,obs,qty:curQty,unitPrice:base+curCrustPrice,total,size:szL[curSize]||'',crust:crL[curCrust],halfOn,h1:halfOn?document.getElementById('hf1').value:'',h2:halfOn?document.getElementById('hf2').value:''});
+  closeModal(); updCartUI(); showToast('✓ Adicionado ao carrinho!');
+}
+
+// CART UI
+function updCartUI(){
+  const qty=cart.reduce((a,c)=>a+c.qty,0),sub=cart.reduce((a,c)=>a+c.total,0),tot=sub+8;
+  const cb=document.getElementById('cartBadge');
+  cb.textContent=qty; cb.classList.toggle('show',qty>0);
+  const fc=document.getElementById('floatCart');
+  fc.classList.toggle('show',qty>0);
+  document.getElementById('floatCnt').textContent=qty;
+  document.getElementById('floatTotal').textContent='R$ '+fmt(tot);
+  const container=document.getElementById('cartItems'),empty=document.getElementById('cartEmpty'),ftr=document.getElementById('cartFtr');
+  if(cart.length===0){empty.style.display='';ftr.style.display='none';container.innerHTML='';container.appendChild(empty);return;}
+  empty.style.display='none';ftr.style.display='';
+  container.innerHTML='';
+  cart.forEach((ci,i)=>{
+    const d=document.createElement('div');d.className='ci';
+    const det=ci.details.filter(Boolean).join(' • ');
+    const ob=ci.obs?'<br>📝 '+ci.obs:'';
+    d.innerHTML=`<div class="ci-top"><img class="ci-img" src="${IMGS[ci.imgKey]}" alt="${ci.name}"><div class="ci-info"><div class="ci-name">${ci.name}</div><div class="ci-details">${det}${ob}</div></div><button class="ci-rm" onclick="rmItem(${i})">🗑</button></div><div class="ci-bot"><div class="ci-price">R$ ${fmt(ci.total)}</div><div class="ci-qty"><button class="ci-qb" onclick="chItemQty(${i},-1)">−</button><span class="ci-qn">${ci.qty}</span><button class="ci-qb" onclick="chItemQty(${i},1)">+</button></div></div>`;
+    container.appendChild(d);
+  });
+  document.getElementById('cSub').textContent='R$ '+fmt(sub);
+  document.getElementById('cTot').textContent='R$ '+fmt(tot);
+}
+function rmItem(i){cart.splice(i,1);updCartUI();}
+function chItemQty(i,d){cart[i].qty=Math.max(1,cart[i].qty+d);cart[i].total=cart[i].qty*cart[i].unitPrice;updCartUI();}
+function toggleCart(){const sb=document.getElementById('cartSb'),bd=document.getElementById('backdrop');sb.classList.toggle('open');bd.classList.toggle('show');document.body.style.overflow=sb.classList.contains('open')?'hidden':'';}
+function closeCart(){document.getElementById('cartSb').classList.remove('open');document.getElementById('backdrop').classList.remove('show');document.body.style.overflow='';}
+
+// CHECKOUT
+function openCheckout(){
+  closeCart();
+  const summary=document.getElementById('osSummary');summary.innerHTML='';
+  cart.forEach(ci=>{
+    const det=ci.details.filter(Boolean).join(' • ');
+    const ob=ci.obs?'📝 '+ci.obs:'';
+    const d=document.createElement('div');d.className='os-item';
+    d.innerHTML=`<img class="os-img" src="${IMGS[ci.imgKey]}" alt="${ci.name}"><div style="flex:1"><div class="os-name">${ci.qty}x ${ci.name}</div><div class="os-det">${det} ${ob}</div></div><div class="os-price">R$ ${fmt(ci.total)}</div>`;
+    summary.appendChild(d);
+  });
+  const sub=cart.reduce((a,c)=>a+c.total,0),tot=sub+8;
+  document.getElementById('ckSub').textContent='R$ '+fmt(sub);
+  document.getElementById('ckTot').textContent='R$ '+fmt(tot);
+  document.getElementById('ckScreen').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeCheckout(){document.getElementById('ckScreen').classList.remove('open');document.body.style.overflow='';}
+
+// PAYMENT
+function selPay(el,t){document.querySelectorAll('.pay-opt').forEach(p=>p.classList.remove('sel'));el.classList.add('sel');curPay=t;document.getElementById('trocoWrap').classList.toggle('show',t==='dinheiro');}
+function setTroco(v){document.getElementById('tBtnN').classList.toggle('active',!v);document.getElementById('tBtnS').classList.toggle('active',v);document.getElementById('trocoInp').classList.toggle('show',v);}
+
+// WHATSAPP
+function sendWA(){
+  const nome=document.getElementById('fNome').value.trim(),tel=document.getElementById('fTel').value.trim(),end=document.getElementById('fEnd').value.trim(),cep=document.getElementById('fCep').value.trim(),bairro=document.getElementById('fBairro').value.trim(),comp=document.getElementById('fComp').value.trim();
+  if(!nome||!tel||!end){showToast('⚠️ Preencha nome, telefone e endereço!');return;}
+  if(cart.length===0){showToast('⚠️ Carrinho está vazio!');return;}
+  const payL={pix:'PIX 💠',cartao:'Cartão 💳',dinheiro:'Dinheiro 💵'};
+  const sub=cart.reduce((a,c)=>a+c.total,0),tot=sub+8;
+  let trocoTxt='';
+  if(curPay==='dinheiro'){const tv=document.getElementById('fTroco').value;trocoTxt=tv?'\nTroco para: R$ '+fmt(parseFloat(tv)):'\nSem troco';}
+  let itens='';
+  cart.forEach(ci=>{
+    const szS=ci.size?'\n   Tamanho: '+ci.size:'';
+    const hfS=ci.halfOn?'\n   ½ '+ci.h1+' / ½ '+ci.h2:'';
+    const crS=ci.crust!=='Sem borda'?'\n   Borda: '+ci.crust:'';
+    const obS=ci.obs?'\n   Obs: '+ci.obs:'';
+    itens+='\n• '+ci.name+szS+hfS+crS+obS+'\n   Qtd: '+ci.qty+'x  |  Valor: R$ '+fmt(ci.total)+'\n';
+  });
+  const msg=`🍕 *NOVO PEDIDO — STAR PIZZARIA* ⭐\n━━━━━━━━━━━━━━━\n\n👤 *DADOS DO CLIENTE*\nNome: ${nome}\n📞 Telefone: ${tel}\n📍 Endereço: ${end}\n📮 CEP: ${cep||'—'}\n🏘 Bairro: ${bairro||'—'}\n📝 Complemento: ${comp||'—'}\n\n━━━━━━━━━━━━━━━\n💳 *PAGAMENTO*\nForma: ${payL[curPay]}${trocoTxt}\n\n━━━━━━━━━━━━━━━\n🛒 *ITENS DO PEDIDO*${itens}\n━━━━━━━━━━━━━━━\n💰 *RESUMO FINANCEIRO*\nSubtotal: R$ ${fmt(sub)}\nTaxa de entrega: R$ 8,00\n*✅ TOTAL GERAL: R$ ${fmt(tot)}*\n\n━━━━━━━━━━━━━━━\n_Pedido enviado pelo Cardápio Digital Star Pizzaria ⭐_`;
+  window.open('https://wa.me/5522999070994?text='+encodeURIComponent(msg),'_blank');
+}
+
+// TOAST
+let tTimer;
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tTimer);tTimer=setTimeout(()=>t.classList.remove('show'),2500);}
+
+updCartUI();
+
+/* ===== GLOW DINÂMICO NOS CARDS (mouse tracking) ===== */
+document.querySelectorAll('.menu-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const rect=card.getBoundingClientRect();
+    card.style.setProperty('--x',`${e.clientX-rect.left}px`);
+    card.style.setProperty('--y',`${e.clientY-rect.top}px`);
+  });
+});
+
+/* ===== SCROLL REVEAL CINEMATOGRAFICO ===== */
+const revealObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('show');});
+},{threshold:.12});
+document.querySelectorAll('.menu-card').forEach(card=>{
+  revealObs.observe(card);
+  if(card.querySelector('.badge-hot,.badge-top')) card.classList.add('highlight');
+});
+
+/* ===== PARALLAX HERO ===== */
+window.addEventListener('scroll',()=>{
+  const sc=window.pageYOffset;
+  const hi=document.querySelector('.hero-img');
+  if(hi) hi.style.transform=`translateY(${sc*.35}px) scale(1.12)`;
+},{passive:true});
+
+/* ===== HEADER PREMIUM AO SCROLL ===== */
+window.addEventListener('scroll',()=>{
+  const hdr=document.querySelector('header');
+  if(!hdr)return;
+  if(window.scrollY>30){
+    hdr.style.background='rgba(5,5,5,.95)';
+    hdr.style.boxShadow='0 10px 50px rgba(0,0,0,.5),0 0 30px rgba(201,168,76,.06)';
+  }else{
+    hdr.style.background='rgba(8,8,8,.72)';
+    hdr.style.boxShadow='0 10px 40px rgba(0,0,0,.35)';
+  }
+},{passive:true});
+
+/* ===== HERO FLOATING PARTICLES ===== */
+(function(){
+  const hero=document.querySelector('.hero');
+  if(!hero)return;
+  const colors=['rgba(201,168,76,0.6)','rgba(240,192,64,0.4)','rgba(255,217,125,0.5)','rgba(201,168,76,0.3)'];
+  const sizes=[3,4,5,6,4,3];
+  for(let i=0;i<14;i++){
+    const p=document.createElement('div');
+    p.className='hero-particle';
+    const sz=sizes[i%sizes.length];
+    p.style.cssText=`width:${sz}px;height:${sz}px;background:${colors[i%colors.length]};left:${5+Math.random()*90}%;bottom:${Math.random()*30}%;animation-duration:${3+Math.random()*4}s;animation-delay:${Math.random()*4}s;box-shadow:0 0 ${sz*2}px ${colors[i%colors.length]};`;
+    hero.appendChild(p);
+  }
+})();
+
+</script>
+</body>
+</html>
