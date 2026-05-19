@@ -15,7 +15,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
-body{background:var(--bg);color:var(--text);font-family:'Montserrat',sans-serif;min-height:100vh;overflowa-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:'Montserrat',sans-serif;min-height:100vh;overflow-x:hidden}
 body::-webkit-scrollbar{width:4px}
 body::-webkit-scrollbar-track{background:var(--bg)}
 body::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
@@ -36,24 +36,24 @@ body::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
 @keyframes ldBarFill{to{width:100%}}
 
 /* HEADER */
-header{position:fixed;top:0;left:0;right:0;z-index:1000;height:60px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,8,8,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:background .3s,box-shadow .3s}
-.hlogo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.hlogo-icon{font-size:1.4rem}
-.hlogo-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--gold);letter-spacing:2px;display:block}
-.hlogo-sub{font-size:.45rem;letter-spacing:5px;color:var(--text2);text-transform:uppercase;display:block}
-.hright{display:flex;align-items:center;gap:10px}
-.open-pill{display:flex;align-items:center;gap:4px;font-size:.58rem;font-weight:700;letter-spacing:1px;color:#2ecc71;text-transform:uppercase}
-.open-dot{width:6px;height:6px;border-radius:50%;background:#2ecc71;animation:blink 1.4s ease-in-out infinite}
+header{position:fixed;top:0;left:0;right:0;z-index:1000;height:56px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,8,8,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:background .3s}
+.hlogo{display:flex;align-items:center;gap:8px;text-decoration:none;min-width:0}
+.hlogo-icon{font-size:1.2rem;flex-shrink:0}
+.hlogo-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:900;color:var(--gold);letter-spacing:1px;display:block;white-space:nowrap}
+.hlogo-sub{font-size:.4rem;letter-spacing:4px;color:var(--text2);text-transform:uppercase;display:block}
+.hright{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.open-pill{display:flex;align-items:center;gap:4px;font-size:.55rem;font-weight:700;letter-spacing:1px;color:#2ecc71;text-transform:uppercase;white-space:nowrap}
+.open-dot{width:6px;height:6px;border-radius:50%;background:#2ecc71;animation:blink 1.4s ease-in-out infinite;flex-shrink:0}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.btn-cart{position:relative;background:linear-gradient(135deg,var(--gold2),#8B6914);border:none;border-radius:50px;padding:8px 14px;display:flex;align-items:center;gap:5px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.7rem;color:#000;cursor:pointer;transition:transform .2s,box-shadow .2s;letter-spacing:1px;box-shadow:0 4px 20px rgba(201,168,76,.3)}
-.btn-cart:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(201,168,76,.5)}
-.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--red);color:#fff;width:18px;height:18px;border-radius:50%;font-size:.6rem;font-weight:800;display:none;align-items:center;justify-content:center}
+.btn-cart{position:relative;background:linear-gradient(135deg,var(--gold2),#8B6914);border:none;border-radius:50px;padding:7px 12px;display:flex;align-items:center;gap:4px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.65rem;color:#000;cursor:pointer;transition:transform .2s;letter-spacing:.5px;white-space:nowrap}
+.btn-cart:hover{transform:translateY(-2px)}
+.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--red);color:#fff;width:16px;height:16px;border-radius:50%;font-size:.55rem;font-weight:800;display:none;align-items:center;justify-content:center}
 .cart-badge.show{display:flex}
 
 /* HERO */
-.hero{margin-top:60px;position:relative;overflow:hidden;height:350px;background:#000}
+.hero{margin-top:60px;position:relative;overflow:hidden;height:350px;background:#000;z-index:1}
 .hero-video{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(130deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.15) 60%,transparent 100%)}
+.hero-overlay{display:none}
 .hero-content{position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);padding:0 20px;max-width:420px}
 .promo-tag{display:inline-block;background:var(--red);color:#fff;font-size:.5rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;padding:4px 10px;border-radius:3px;margin-bottom:8px}
 .hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,7vw,3rem);font-weight:900;line-height:1;color:#fff;margin-bottom:4px;text-shadow:0 2px 15px rgba(0,0,0,.6)}
@@ -106,8 +106,8 @@ header{position:fixed;top:0;left:0;right:0;z-index:1000;height:60px;padding:0 16
 .menu-card.show{opacity:1;transform:translateY(0)}
 .menu-card:hover{transform:translateY(-3px);border-color:rgba(201,168,76,.4);box-shadow:0 8px 30px rgba(0,0,0,.4)}
 .menu-card:active{transform:scale(.98)}
-.card-img-wrap{width:108px;min-width:108px;height:108px;overflow:hidden;position:relative;flex-shrink:0}
-.card-img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.card-img-wrap{width:110px;min-width:110px;height:110px;overflow:hidden;position:relative;flex-shrink:0;background:#1a1a1a}
+.card-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
 .menu-card:hover .card-img{transform:scale(1.06)}
 .badge-hot{position:absolute;top:6px;left:6px;background:var(--red);color:#fff;font-size:.48rem;font-weight:800;letter-spacing:1px;padding:2px 6px;border-radius:3px;text-transform:uppercase}
 .badge-top{position:absolute;top:6px;left:6px;background:linear-gradient(135deg,var(--gold),#8B6914);color:#000;font-size:.48rem;font-weight:800;letter-spacing:1px;padding:2px 6px;border-radius:3px;text-transform:uppercase}
@@ -343,7 +343,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:28px 14p
 </header>
 
 <section class="hero">
-  <video class="hero-video" autoplay muted loop playsinline poster="banner.jpg">
+  <video class="hero-video" autoplay muted loop playsinline poster="banner.png">
     <source src="banner.mp4" type="video/mp4">
     <img src="banner.jpg" alt="Star Pizzaria" style="width:100%;height:100%;object-fit:cover">
   </video>
@@ -686,10 +686,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:28px 14p
 
 <script>
 const IMGS={
-  s01:'s01.jpg',s02:'s02.jpg',s03:'s03.jpg',s04:'s04.jpg',s05:'s05.jpg',
-  s06:'s06.jpg',s07:'s07.jpg',s08:'s08.jpg',s09:'s09.jpg',s10:'s10.jpg',s11:'s11.jpg',
-  c01:'c01.jpg',c02:'c02.jpg',c03:'c03.jpg',
-  b01:'b01.jpg',b02:'b02.jpg',b03:'b03.jpg',b04:'b04.jpg',b05:'b05.jpg',b06:'b06.jpg'
+  s01:'s01.png',s02:'s02.png',s03:'s03.png',s04:'s04.png',s05:'s05.png',
+  s06:'s06.png',s07:'s07.png',s08:'s08.png',s09:'s09.png',s10:'s10.png',s11:'s11.png',
+  c01:'c01.png',c02:'c02.png',c03:'c03.png',
+  b01:'b01.png',b02:'b02.png',b03:'b03.png',b04:'b04.png',b05:'b05.png',b06:'b06.png'
 };
 const MENU=[
   {cat:'salgada',img:'s01',name:'Calabresa',desc:'Molho artesanal de tomate, mussarela e calabresa defumada fatiada.',ps:42.9,pm:49.9,pl:59.9},
